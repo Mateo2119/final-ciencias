@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <iostream>
-#include "estructura1.h"
+#include "estructuras.h"
 
 #ifndef PILA_H     
 #define PILA_H    
