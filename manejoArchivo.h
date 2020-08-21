@@ -208,7 +208,7 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 		
 		}
 	
-}
+	}
 
 }
 
