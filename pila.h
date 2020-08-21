@@ -5,6 +5,9 @@
 #ifndef PILA_H     
 #define PILA_H    
 
+template <class T>
+
+template <class T>
 class pila{
 	  nodo *cab;
       public: pila(){
@@ -18,14 +21,16 @@ class pila{
              ~pila();
       };
      
-void pila::Push(T v){
+template <class T>
+void pila<T>::Push(T v){
      nodo *t = new nodo;
      t->dato=v; 
      t->sig=cab->sig;
      cab->sig= t;
      }
-
-char pila::Pop(){
+     
+template <class T>
+char pila<T>::Pop(){
      T x;
      nodo *t= cab->sig;
      cab->sig= t->sig; 
@@ -34,7 +39,8 @@ char pila::Pop(){
      return x;
      }
      
-bool pila::PilaVacia(){
+template <class T>     
+bool pila<T>::PilaVacia(){
       return cab->sig== NULL;
       }
 
