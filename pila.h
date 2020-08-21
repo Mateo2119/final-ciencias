@@ -6,7 +6,11 @@
 #define PILA_H    
 
 template <class T>
-
+struct nodo{
+		T dato;
+        nodo *sig;
+       };
+       
 template <class T>
 class pila{
 	  nodo *cab;

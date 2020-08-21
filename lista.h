@@ -7,7 +7,9 @@ using namespace std;
 
 template <class T>
 
-
+struct nodoLista {
+		T Dato;
+        nodoLista<T> * sig;};
 
 template <class T>
 class lista{nodoLista <T> *cab;
@@ -66,7 +68,7 @@ void lista<T>::insertar_final(T infoNueva)
   if(tam == 0)
     {cab = nuevo;}
   else
-    {nodo <T> *aux;
+    {nodoLista <T> *aux;
      aux = cab;
      while(aux->sig != NULL)
         {aux = aux->sig;}

@@ -8,6 +8,11 @@
 using namespace std;
 template <class T>
 
+struct nodo{
+		T dato;
+        nodo *sig;
+       };
+       
 template <class T>
 class cola{
 	nodo *cab,*fin;

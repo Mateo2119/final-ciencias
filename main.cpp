@@ -9,7 +9,6 @@
 #include<sstream>
 #include <vector>
 #include "manejoarchivo.h"
-#include "logicaformulario.h"
 #include "estructuras.h"
 #include "lista.h"
 
@@ -27,13 +26,18 @@ lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
 
 
-string fechaActual(char fecha){
+/*string fechaActual(char fecha){
   	struct tm *tm;
 	strptime(fecha.c_str(), 11, "%d/%m/%Y", tm);
 	return fecha;
 }
+*/
+std::string toString(auto &i){
+   std::stringstream ss;
+   ss << i;
 
-
+   return ss.str();
+}
 void menu();
 
 void menuPrincipal(){
@@ -43,7 +47,7 @@ void menuPrincipal(){
 	cout<<"Bienvenido al sistema de seguimiento, seleccione una opcion.\n"
 		  "1. Loguearse como director de area.\n"
 		  "2. Loguearse como profesor.\n"
-		  "3. Loguearse como jefe de seccion.\n"
+		  "3. Loguearse como jefe de seccion.\n";
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
@@ -74,7 +78,7 @@ void subMenuDirector() {
 		  "2. Consultar comportamiento promedio de los estudiantes de un curso\n"
 		  "3. Consultar comportamiento promedio de los estudiantes por profesor\n"
 		  "4. Consultar lista de profesores por numero de clases dictadas\n"
-		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n"
+		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n";
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
@@ -121,10 +125,10 @@ void subMenuJefeSeccion() {
 		cin>>opcion;
 		switch(opcion){
 				
-			case 1:	
-			
+			case 1:				
 					profesor auxProf;
 					string auxArchivoProf;
+					
 					cout<<"Digite la cedula del profesor\n";
 					cin>>auxProf.cedula;
 					cout<<"Digite apellidos\n";
@@ -133,29 +137,29 @@ void subMenuJefeSeccion() {
 					cin>>auxProf.nombres;
 					cout<<"Digite cantidad de cursos que dictara\n";
 					cin>>auxProf.numeroDeClases;	
-					auxProf.listaCortesDeNotas = listaCortesDeNotas;
-					auto c = std::to_string(auxProf.cedula);
-					auto nc = std::to_string(auxProf.numeroDeClases);
-					registroArchivo(auxProf);
-					auxArchivoProf = c+":"auxProf.apellidos+","+auxProf.nombres+","+nc;
-					manejoArchivo.
-					auxProf = NULL;	
+					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
+					//registroArchivo(auxProf);
+					auxArchivoProf = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+toString(auxProf.numeroDeClases);
+					
+										
 				break;
 			case 2:
 				break;
 			case 3:	
 				break;
 			case 4:
-				break;			
+				break;						
 		}
 	}while(opcion!=0);
 }
+
+
 
 void subMenuProfesor() {
 	system("cls");
 	
 	cout<<"Bienvenido profesor, seleccione una opcion.\n"
-		  "1. Modificar esquema propuesto para corte\n"
+		  "1. Modificar esquema propuesto para corte\n";
 		  
 	cout<<"Opcion:  ";
 	int opcion=0;
@@ -175,9 +179,7 @@ void subMenuProfesor() {
 }
 
 
-void archivoAListaProfesor() {
-	
-}
+
 int main(int argc, char** argv) {
 	
 	menu();
