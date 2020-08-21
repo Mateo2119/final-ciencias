@@ -2,20 +2,30 @@
 #define ESTRUCTURAS_H 
 
 struct nodo{
-		char dato;
+		T dato;
         nodo *sig;
        };
 
 struct nodoLista {
 		T Dato;
-        nodo<T> * sig;};
+        nodoLista<T> * sig;};
+        
+
+struct estudiante {
+		char nombreEstudiante;		
+		lista<float> nota; 
+};
         
 struct profesor {
 		int  cedula;
 		char apellidos;
 		char nombres;
 		int  numeroDeClases;	
-		lista<corte> listaCortes;	
+		lista <cortesDeNotas> listaCortesDeNotas;	
+};
+
+struct cortesDeNotas {		
+		lista <corte> listaCortes;
 };
 
 struct corte {
@@ -29,12 +39,13 @@ struct apuntadorEva {
 };
 
 struct evaluacion {
+	    char fecha;
 		int tema;
 		float porcentajeTema;
 		evaluacion *preguntaSig;
 };
 
-struct tema {
+struct temas {
 		int codigoTema;
 		char nombreTema;
 };

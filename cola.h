@@ -10,14 +10,14 @@ using namespace std;
 class cola{
 	nodo *cab,*fin;
     public: cola(){cab=fin=NULL;}
-    void InsCola(char i);
-    char AtenderCola();
+    void InsCola(T i);
+    T AtenderCola();
     void ImprimirCola();
     bool ColaVacia();
     ~cola();
  };
 
-void cola::InsCola(char i){
+void cola::InsCola(T i){
      nodo *nuevo;
      nuevo= new nodo;
      nuevo->dato=i;
@@ -30,8 +30,8 @@ void cola::InsCola(char i){
 
 
 
-char cola::AtenderCola()
-{   char x;
+T cola::AtenderCola()
+{   T x;
     nodo *aux = cab; 
     cab=aux->sig;
     x=aux->dato;

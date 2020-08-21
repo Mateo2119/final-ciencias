@@ -9,16 +9,16 @@ class pila{
 	  nodo *cab;
       public: pila(){
 	  		cab= new nodo;
-            cab->dato=' ';
+            cab->dato=NULL;
             cab->sig = NULL;
 		}
-             void Push( char v);
+             void Push( T v);
              char Pop();
              bool PilaVacia();
              ~pila();
       };
      
-void pila::Push(char v){
+void pila::Push(T v){
      nodo *t = new nodo;
      t->dato=v; 
      t->sig=cab->sig;
@@ -26,7 +26,7 @@ void pila::Push(char v){
      }
 
 char pila::Pop(){
-     char x;
+     T x;
      nodo *t= cab->sig;
      cab->sig= t->sig; 
      x=t->dato;

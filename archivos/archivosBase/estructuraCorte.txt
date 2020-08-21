@@ -1,6 +1,6 @@
 C1
 	QUICES
-		 20:2 20:1
+		 20:2 fecha:20:1
 		 30:3 20:2
 	TALLERES
 		 40:3
