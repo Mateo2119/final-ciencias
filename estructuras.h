@@ -14,7 +14,8 @@ struct estudiantePorCurso {
 		lista<estudiante> estudiante;				
 }; 
 
-struct evaluacion {	    
+struct evaluacion {
+		string fecha;	    
 		int tema;
 		string porcentajeTema;
 		evaluacion *preguntaSig;

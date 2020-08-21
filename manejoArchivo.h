@@ -159,10 +159,14 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 	corte auxCorte;
 	ifstream archivo;
 	string texto;
+	string textoLinea;
+	string textoPregunta;
 	vector<string> resultado;
+	vector<string> resultadoLinea;
+	vector<string> resultadoPregunta;
 	lista<evaluacion> auxListaEvaluaciones;
 	evaluacion auxEvaluacion;
-	evaluacion *temp;
+	
 	
 	archivo.open(ruta.c_str(), ios::in);
 	if(archivo.fail()){
@@ -177,6 +181,27 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 				}
 				if(i==1){
 					auxCorte.porcentaje = resultado[i];
+				}
+				if(i>1) {
+					std::stringstream r1(resultado[i]);
+					getline(r1,textoLinea,',');
+					resultadoLinea.push_back(textoLinea);
+					for(int j=0; j<resultadoLinea.size(); j++){
+						std::stringstream r2(resultadoLinea[j]);
+						getline(r2,textoPregunta,':');
+						resultadoPregunta.push_back(textoPregunta);
+						auxEvaluacion.fecha = resultadoPregunta[0];
+						auxEvaluacion.porcentajeTema = resultadoPregunta[1];
+						auxEvaluacion.tema = toInt(resultadoPregunta[2]);
+						
+						if(!j+1==resultadoLinea.size()){
+							evaluacion *temp;
+							temp->fecha = resultadoPregunta[0];
+							temp->porcentajeTema = resultadoPregunta[1];
+							temp->tema = toInt(resultadoPregunta[2]);							
+							auxEvaluacion.preguntaSig = temp;
+						}
+					}
 				}	
 								
 			}		
