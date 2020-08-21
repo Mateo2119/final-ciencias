@@ -12,11 +12,11 @@ struct estudiante{
 struct estudiantePorCurso {
 		string codigoCurso;
 		lista<estudiante> estudiante;				
-};
+}; 
 
 struct evaluacion {	    
 		int tema;
-		float porcentajeTema;
+		string porcentajeTema;
 		evaluacion *preguntaSig;
 };
 
@@ -26,7 +26,7 @@ struct apuntadorEva {
 
 struct corte {
 		string tipoEvaluacion;
-		float porcentaje;
+		string porcentaje;
 		apuntadorEva *apuntadorEva;
 }; 
    

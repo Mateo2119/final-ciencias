@@ -26,13 +26,14 @@ lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
 
 
+
 /*string fechaActual(char fecha){
   	struct tm *tm;
 	strptime(fecha.c_str(), 11, "%d/%m/%Y", tm);
 	return fecha;
 }
 */
-std::string toString(auto &i){
+string pasarString(auto &i){
    std::stringstream ss;
    ss << i;
 
@@ -84,16 +85,26 @@ void subMenuDirector() {
 		cin>>opcion;
 		switch(opcion){
 				
-			case 1:								
+			case 1:	{
 				break;
-			case 2:
+			}							
+				
+			case 2:{
 				break;
-			case 3:	
-				break;	
-			case 4:	
-				break;	
-			case 5:	
-				break;			
+			}
+				
+			case 3:	{
+				break;
+			}
+				
+			case 4:	{
+				break;
+			}
+					
+			case 5:	{
+				break;
+			}
+							
 		}
 	}while(opcion!=0);
 }
@@ -112,9 +123,6 @@ void subMenuJefeSeccion() {
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
 	do{
-		if(opcion!=0){
-			cout<<"Seleccione una opcion valida"<<endl;
-		}
 		
 		cin>>opcion;
 		switch(opcion){
@@ -133,15 +141,21 @@ void subMenuJefeSeccion() {
 					cin>>auxProf.numeroDeClases;	
 					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
 					//registroArchivo(auxProf);
-					auxArchivoProf = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+toString(auxProf.numeroDeClases);
+					auxArchivoProf = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases);
 				break;
 			}			
-			case 2:
+			case 2:{
 				break;
-			case 3:	
+			}
+				
+			case 3:	{
 				break;
-			case 4:
-				break;						
+			}
+				
+			case 4:{
+				break;
+			}
+										
 		}
 	}while(opcion!=0);
 }
@@ -164,13 +178,14 @@ void subMenuProfesor() {
 		
 		cin>>opcion;
 		switch(opcion){
-				
-			case 1:								
-				break;		
+
+			case 1:	{
+				break;
+			}							
+						
 		}
 	}while(opcion!=0);
 }
-
 
 
 int main(int argc, char** argv) {
@@ -178,5 +193,6 @@ int main(int argc, char** argv) {
 	menuPrincipal();
 	return 0;
 }
-	
+
+
 	

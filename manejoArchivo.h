@@ -21,10 +21,10 @@ int toInt(string i){
 
 template <class T>
 class manejoArchivo{
-	  char IndicativoParcial='P';
+	  
       public: manejoArchivo(){}
              void escritura(string nombreArchivo, string dato);
-             void archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial);
+             void archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial, int numeroCortes);
              
 };
 
@@ -42,7 +42,7 @@ void manejoArchivo<T>::escritura(string nombreArchivo,string dato){
 }
 
 template <class T>
-void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
+void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial, int numeroCortes) {
 	ifstream archivo;
 	string texto;
 	string ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";
@@ -131,7 +131,7 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 										auxProfesor.numeroDeClases = toInt(resultado[i]);
 									}
 								}
-																	
+								return listaCortesDeNotas;									
 							}
 							break;
 						}
@@ -154,12 +154,15 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 
 lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 	string ruta = "./archivos/archivosNotas/Esquema/cortesDeNotas_"+cedula+".txt";
-	lista<cortesDeNotas> listaCortesDeNotas;
-	lista <corte> listaCortes;
+	lista<cortesDeNotas> auxListaCortesDeNotas;
+	lista <corte> auxListaCortes;	
 	corte auxCorte;
 	ifstream archivo;
 	string texto;
 	vector<string> resultado;
+	lista<evaluacion> auxListaEvaluaciones;
+	evaluacion auxEvaluacion;
+	evaluacion *temp;
 	
 	archivo.open(ruta.c_str(), ios::in);
 	if(archivo.fail()){
@@ -168,21 +171,21 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 		while(!archivo.eof()){
 			getline(archivo,texto,' ');
 			resultado.push_back(texto);
-			
+			for(int i=0; i<resultado.size(); i++){
+				if(i==0) {
+					auxCorte.tipoEvaluacion = resultado[i];
+				}
+				if(i==1){
+					auxCorte.porcentaje = resultado[i];
+				}	
+								
+			}		
+		
 		}
-		
-		
-	}
 	
 }
 
-lista<corte> consultarEstructuraDeNotasPorProfesor(string cedula) {
-	string ruta = "./archivos/archivosNotas/Esquema/estructuraDeNotas_"+cedula+".txt";
-	lista<evaluacion> evaluaciones;
-	evaluacion *auxEvaluacion;
-	evaluacion *temp;
 }
-
 
 
 
