@@ -9,7 +9,23 @@
 using namespace std;
 fstream archivo;
 
-void escritura(string nombreArchivo,string dato){
+using namespace std;
+template <class T>
+
+template <class T>
+
+class manejoArchivo{
+	  
+      public: manejoArchivo(){	  		
+		}
+             void escritura(string nombreArchivo, dato);
+             void lista<T> archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial);
+             
+      };
+
+template <class T>
+
+void manejoArchivo<T>::escritura(string nombreArchivo,string dato){
 	archivo.open(nombreArchivo.c_str(),ios::out|ios::app); 
 	if (archivo.is_open() ){
 		archivo<<dato;		
@@ -20,7 +36,7 @@ void escritura(string nombreArchivo,string dato){
 	}
 }
 
-lista<T> archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
+lista<T> manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
 
 	archivo.open("./archivos/"+carpeta+"/"+tipoArchivo, ios::in);
 	if(archivo.fail()){
