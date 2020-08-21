@@ -8,7 +8,7 @@
 #include <string>
 #include<sstream>
 #include <vector>
-#include "manejoarchivos.h"
+#include "manejoarchivo.h"
 #include "logicaformulario.h"
 #include "estructuras.h"
 #include "lista.h"
@@ -26,7 +26,7 @@ lista <corte> listaCortes;
 lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
 
-listaProfesores.
+
 string fechaActual(char fecha){
   	struct tm *tm;
 	strptime(fecha.c_str(), 11, "%d/%m/%Y", tm);
@@ -122,10 +122,24 @@ void subMenuJefeSeccion() {
 		switch(opcion){
 				
 			case 1:	
-					int cedula;
-					cout<<"Digite la cedula del profesor";
-					cin>>cedula;
-					if(listaProfesores.)						
+			
+					profesor auxProf;
+					string auxArchivoProf;
+					cout<<"Digite la cedula del profesor\n";
+					cin>>auxProf.cedula;
+					cout<<"Digite apellidos\n";
+					cin>>auxProf.apellidos;
+					cout<<"Digite nombres\n";
+					cin>>auxProf.nombres;
+					cout<<"Digite cantidad de cursos que dictara\n";
+					cin>>auxProf.numeroDeClases;	
+					auxProf.listaCortesDeNotas = listaCortesDeNotas;
+					auto c = std::to_string(auxProf.cedula);
+					auto nc = std::to_string(auxProf.numeroDeClases);
+					registroArchivo(auxProf);
+					auxArchivoProf = c+":"auxProf.apellidos+","+auxProf.nombres+","+nc;
+					manejoArchivo.
+					auxProf = NULL;	
 				break;
 			case 2:
 				break;
@@ -158,6 +172,11 @@ void subMenuProfesor() {
 				break;		
 		}
 	}while(opcion!=0);
+}
+
+
+void archivoAListaProfesor() {
+	
 }
 int main(int argc, char** argv) {
 	

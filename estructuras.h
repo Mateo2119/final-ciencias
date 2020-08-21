@@ -57,11 +57,11 @@ struct clases {
 
 struct espacio {
 		char codigoEspacio;
-		archivo *archivo;
+		archivo *archivosEntrega;
 };
 
-struct archivo {
+struct archivosEntrega {
 		char nombreArchivo;
-		archivo *archivoSig;
+		archivosEntrega *archivoSig;
 };
 #endif

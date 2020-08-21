@@ -4,7 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include "estructuras.h"
+#include "lista.h"
 using namespace std;
 fstream archivo;
 
@@ -19,8 +20,35 @@ void escritura(string nombreArchivo,string dato){
 	}
 }
 
-void lectura(){
-	
+lista<T> archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
+
+	archivo.open("./archivos/"+carpeta+"/"+tipoArchivo, ios::in);
+	if(archivo.fail()){
+		cout<<"No se pudo abrir el archivo";		
+	} else {
+		switch(carpeta){
+			case "archivosBase":
+					switch(tipoArchivo){
+						case "archivosPorCurso":
+							break;
+						case "cortesDeNotas":
+							break;
+						case "estructuraCorte":
+							break;
+						case "estudiantePorCurso":
+							break;
+						case "profesores":
+							break;
+						case "profesorPorCurso":
+							break;	
+					}
+				break;
+			case "archivosNotas":
+				break;
+			case "consolidado":
+				break;
+		}
+	}
 }
 
 

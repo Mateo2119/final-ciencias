@@ -124,6 +124,8 @@ bool lista<T>::buscar(int pos, T *infoRet)
 	return false;
 }
 
+
+
 template <class T>
 T lista<T>::buscarT(int pos, T *infoRet)
 {   nodoLista <T> *aux=cab;

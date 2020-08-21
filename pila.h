@@ -16,7 +16,7 @@ class pila{
             cab->sig = NULL;
 		}
              void Push( T v);
-             char Pop();
+             T Pop();
              bool PilaVacia();
              ~pila();
       };
@@ -30,7 +30,7 @@ void pila<T>::Push(T v){
      }
      
 template <class T>
-char pila<T>::Pop(){
+T pila<T>::Pop(){
      T x;
      nodo *t= cab->sig;
      cab->sig= t->sig; 

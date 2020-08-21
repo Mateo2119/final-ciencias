@@ -6,7 +6,9 @@
 #define COLA_H 
 
 using namespace std;
+template <class T>
 
+template <class T>
 class cola{
 	nodo *cab,*fin;
     public: cola(){cab=fin=NULL;}
@@ -17,7 +19,8 @@ class cola{
     ~cola();
  };
 
-void cola::InsCola(T i){
+template <class T>
+void cola<T>::InsCola(T i){
      nodo *nuevo;
      nuevo= new nodo;
      nuevo->dato=i;
@@ -29,8 +32,8 @@ void cola::InsCola(T i){
 }
 
 
-
-T cola::AtenderCola()
+template <class T>
+T cola<T>::AtenderCola()
 {   T x;
     nodo *aux = cab; 
     cab=aux->sig;
@@ -38,8 +41,9 @@ T cola::AtenderCola()
     delete aux;
     return x;
     }
-
-void cola::ImprimirCola(){
+    
+template <class T>
+void cola<T>::ImprimirCola(){
      nodo *aux;
      aux=cab;
      while(aux!=NULL){
@@ -47,7 +51,8 @@ void cola::ImprimirCola(){
        aux=aux->sig;}    
 }
 
-bool cola::ColaVacia(){
+template <class T>
+bool cola<T>::ColaVacia(){
      return (cab==NULL);
      }
 
