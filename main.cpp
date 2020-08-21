@@ -38,7 +38,7 @@ std::string toString(auto &i){
 
    return ss.str();
 }
-void menu();
+
 
 void menuPrincipal(){
 	system("cls");
@@ -52,9 +52,6 @@ void menuPrincipal(){
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
 	do{
-		if(opcion!=0){
-			cout<<"Seleccione una opcion valida"<<endl;
-		}
 		
 		cin>>opcion;
 		switch(opcion){
@@ -83,9 +80,6 @@ void subMenuDirector() {
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
 	do{
-		if(opcion!=0){
-			cout<<"Seleccione una opcion valida"<<endl;
-		}
 		
 		cin>>opcion;
 		switch(opcion){
@@ -125,8 +119,8 @@ void subMenuJefeSeccion() {
 		cin>>opcion;
 		switch(opcion){
 				
-			case 1:				
-					profesor auxProf;
+			case 1:	{
+				profesor auxProf;
 					string auxArchivoProf;
 					
 					cout<<"Digite la cedula del profesor\n";
@@ -140,9 +134,8 @@ void subMenuJefeSeccion() {
 					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
 					//registroArchivo(auxProf);
 					auxArchivoProf = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+toString(auxProf.numeroDeClases);
-					
-										
 				break;
+			}			
 			case 2:
 				break;
 			case 3:	
@@ -182,7 +175,7 @@ void subMenuProfesor() {
 
 int main(int argc, char** argv) {
 	
-	menu();
+	menuPrincipal();
 	return 0;
 }
 	

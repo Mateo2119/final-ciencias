@@ -8,9 +8,8 @@
 #include "estructuras.h"
 #include "lista.h"
 
-fstream archivo;
+
 using namespace std;
-template <class T>
 
 
 template <class T>
@@ -18,16 +17,17 @@ class manejoArchivo{
 	  
       public: manejoArchivo(){}
              void escritura(string nombreArchivo, string dato);
-             lista<T> archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial);
+             void archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial);
              
 };
 
 template <class T>
 void manejoArchivo<T>::escritura(string nombreArchivo,string dato){
-	archivo.open(nombreArchivo.c_str(),ios::out|ios::app); 
-	if (archivo.is_open() ){
-		archivo<<dato;		
-		archivo.close();
+	ofstream archivoEs;
+	archivoEs.open(nombreArchivo.c_str(),ios::out|ios::app); 
+	if (!archivoEs.fail() ){
+		archivoEs<<dato;		
+		archivoEs.close();
 		
 	}else{
 		cout<<"ERROR: no se encuentra el archivo para la operacion solicitada"<<endl;		
@@ -35,22 +35,24 @@ void manejoArchivo<T>::escritura(string nombreArchivo,string dato){
 }
 
 template <class T>
-lista<T> manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
+void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
+	ifstream archivo;
 	string texto;
-	archivo.open("./archivos/"+carpeta+"/"+tipoArchivo, ios::in);
+	char* ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";
+	archivo.open(ruta, ios::in);
 	if(archivo.fail()){
 		cout<<"No se pudo abrir el archivo";		
 	} else {
 		switch(carpeta){
 			case "archivosBase":
 					switch(tipoArchivo){
-						case "archivosPorCurso":
+						case "archivosPorCurso":{
 							vector<string> resultado;
 							archivosEntrega *auxArchivo;
 							espacio auxEspacio;					
 							lista<espacio> listaEspacio;							
 							while(!archivo.eof()){
-								  getline(archivo,texto," ");
+								  getline(archivo,texto,' ');
 								  resultado.push_back(texto);
 								  for(int i=0; i<resultado.size(); i++){
 								  		if(i==1) {
@@ -59,7 +61,7 @@ lista<T> manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, str
 											archivosEntrega *temp=NULL;
 											auxArchivo->nombreArchivo = resultado[i];
 											if(!i+1==resultado.size()){
-												temp.nombreArchivo = resultado[i+1];
+												temp->nombreArchivo = resultado[i+1];
 												auxArchivo->archivoSig = temp;												
 											}
 											auxArchivo->archivoSig=NULL;
@@ -71,31 +73,43 @@ lista<T> manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, str
 								}
 							return listaEspacio;
 							break;
-						case "cortesDeNotas":
+						}						
+							
+						case "estudiantePorCurso":{
+							vector<string> resultado;							
+							estudiante auxEstudiante;					
+							lista<estudiante> listaEstudiante;
+							
 							while(!archivo.eof()){
-									
-								}
+								getline(archivo,texto,' ');
+								  resultado.push_back(texto);
+								  for(int i=0; i<resultado.size(); i++){
+								  		if(i==1) {
+								  			auxEstudiante.codigoCurso = resultado[i];
+										}else{
+											auxEstudiante.nombreEstudiante = resultado[i];
+										}
+								  	}
+								  	if(listaEstudiante.lista_vacia())
+								  		listaEstudiante.insertar_inicio(auxEstudiante);
+								  	listaEstudiante.insertar_final(auxEstudiante);	
+							}
+							return listaEstudiante;
 							break;
-						case "estructuraCorte":
+						}
+						case "profesores":{
 							while(!archivo.eof()){
 									
 							}
 							break;
-						case "estudiantePorCurso":
+						}
+						case "profesorPorCurso":{
 							while(!archivo.eof()){
 									
 							}
 							break;
-						case "profesores":
-							while(!archivo.eof()){
-									
-							}
-							break;
-						case "profesorPorCurso":
-							while(!archivo.eof()){
-									
-							}
-							break;	
+						}		
+								
 					}
 				break;
 			case "archivosNotas":

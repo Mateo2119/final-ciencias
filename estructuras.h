@@ -5,8 +5,9 @@
 
 
 struct estudiante {
-		char nombreEstudiante;		
-		lista<float> nota; 
+		string codigoCurso;
+		string nombreEstudiante;		
+		lista<float> notas; 
 };
  
  
