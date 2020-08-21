@@ -12,9 +12,16 @@
 using namespace std;
 
 
+int toInt(string i){
+   stringstream ss(i);
+   int x = 0;
+   ss << x;
+   return x;
+}
+
 template <class T>
 class manejoArchivo{
-	  
+	  char IndicativoParcial='P';
       public: manejoArchivo(){}
              void escritura(string nombreArchivo, string dato);
              void archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial);
@@ -38,8 +45,8 @@ template <class T>
 void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial) {
 	ifstream archivo;
 	string texto;
-	char* ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";
-	archivo.open(ruta, ios::in);
+	string ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";
+	archivo.open(ruta.c_str(), ios::in);
 	if(archivo.fail()){
 		cout<<"No se pudo abrir el archivo";		
 	} else {
@@ -54,8 +61,8 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 							while(!archivo.eof()){
 								  getline(archivo,texto,' ');
 								  resultado.push_back(texto);
-								  for(int i=0; i<resultado.size(); i++){
-								  		if(i==1) {
+								  	for(int i=0; i<resultado.size(); i++){
+								  		if(i==0) {
 								  			auxEspacio.codigoEspacio = resultado[i];
 										}else{
 											archivosEntrega *temp=NULL;
@@ -67,6 +74,7 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 											auxArchivo->archivoSig=NULL;
 										}
 								  	}
+								  	auxEspacio.archivosEntrega=auxArchivo;
 								  	if(listaEspacio.lista_vacia())
 								  		listaEspacio.insertar_inicio(auxEspacio);
 								  	listaEspacio.insertar_final(auxEspacio);													
@@ -77,29 +85,53 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 							
 						case "estudiantePorCurso":{
 							vector<string> resultado;							
+							estudiantePorCurso auxEstudiantePorCurso;
 							estudiante auxEstudiante;					
+							lista<estudiantePorCurso> listaEstudiantePorCurso;
 							lista<estudiante> listaEstudiante;
 							
 							while(!archivo.eof()){
-								getline(archivo,texto,' ');
+								  getline(archivo,texto,' ');
 								  resultado.push_back(texto);
 								  for(int i=0; i<resultado.size(); i++){
-								  		if(i==1) {
-								  			auxEstudiante.codigoCurso = resultado[i];
+								  		if(i==0) {
+								  			auxEstudiantePorCurso.codigoCurso = resultado[i];
 										}else{
-											auxEstudiante.nombreEstudiante = resultado[i];
+											auxEstudiante.nombreEstudiante = resultado[i];											
 										}
 								  	}
-								  	if(listaEstudiante.lista_vacia())
-								  		listaEstudiante.insertar_inicio(auxEstudiante);
-								  	listaEstudiante.insertar_final(auxEstudiante);	
-							}
-							return listaEstudiante;
+								  	listaEstudiante.insertar_inicio(auxEstudiante);
+								  	auxEstudiantePorCurso.estudiante=listaEstudiante;
+								  	if(listaEstudiantePorCurso.lista_vacia())
+								  		listaEstudiantePorCurso.insertar_inicio(auxEstudiantePorCurso);
+								  	listaEstudiantePorCurso.insertar_final(auxEstudiantePorCurso);													
+								}
+							return listaEstudiantePorCurso;
 							break;
 						}
 						case "profesores":{
+							vector<string> resultado;
+							profesor auxProfesor;
+							lista <cortesDeNotas> listaCortesDeNotas;
+							lista<profesor> listaProfesores;
 							while(!archivo.eof()){
-									
+								getline(archivo,texto,' ');
+								resultado.push_back(texto);
+								for(int i=0; i<resultado.size(); i++){
+								  	if(i==0) {
+								  		auxProfesor.cedula = resultado[i];
+									}
+									if(i==1){
+										auxProfesor.apellidos = resultado[i];
+									}
+									if(i==2){
+										auxProfesor.nombres = resultado[i];
+									}
+									if(i==3){
+										auxProfesor.numeroDeClases = toInt(resultado[i]);
+									}
+								}
+																	
 							}
 							break;
 						}
@@ -118,6 +150,37 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 				break;
 		}
 	}
+}
+
+lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
+	string ruta = "./archivos/archivosNotas/Esquema/cortesDeNotas_"+cedula+".txt";
+	lista<cortesDeNotas> listaCortesDeNotas;
+	lista <corte> listaCortes;
+	corte auxCorte;
+	ifstream archivo;
+	string texto;
+	vector<string> resultado;
+	
+	archivo.open(ruta.c_str(), ios::in);
+	if(archivo.fail()){
+		//crear archivo
+	} else {
+		while(!archivo.eof()){
+			getline(archivo,texto,' ');
+			resultado.push_back(texto);
+			
+		}
+		
+		
+	}
+	
+}
+
+lista<corte> consultarEstructuraDeNotasPorProfesor(string cedula) {
+	string ruta = "./archivos/archivosNotas/Esquema/estructuraDeNotas_"+cedula+".txt";
+	lista<evaluacion> evaluaciones;
+	evaluacion *auxEvaluacion;
+	evaluacion *temp;
 }
 
 

@@ -4,15 +4,17 @@
 #include <string>
 
 
-struct estudiante {
-		string codigoCurso;
-		string nombreEstudiante;		
-		lista<float> notas; 
+
+struct estudiante{
+		string nombreEstudiante;
 };
- 
- 
-struct evaluacion {
-	    char fecha;
+
+struct estudiantePorCurso {
+		string codigoCurso;
+		lista<estudiante> estudiante;				
+};
+
+struct evaluacion {	    
 		int tema;
 		float porcentajeTema;
 		evaluacion *preguntaSig;
@@ -57,7 +59,7 @@ struct espacio {
 };
 
 struct clases {
-		int cedulaProfesor;
+		string cedulaProfesor;
 		lista<espacio> espacio;
 };
 
