@@ -25,7 +25,7 @@ class manejoArchivo{
       public: manejoArchivo(){}
              void escritura(string nombreArchivo, string dato);
              void archivoALista(string tipoArchivo, string carpeta, string codigoGrupo, int numeroParcial, int numeroCortes);
-             
+      private:lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula);
 };
 
 template <class T>
@@ -111,27 +111,21 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 						}
 						case "profesores":{
 							vector<string> resultado;
-							profesor auxProfesor;
-							lista <cortesDeNotas> listaCortesDeNotas;
+							profesor auxProfesor;							
 							lista<profesor> listaProfesores;
 							while(!archivo.eof()){
 								getline(archivo,texto,' ');
 								resultado.push_back(texto);
-								for(int i=0; i<resultado.size(); i++){
-								  	if(i==0) {
-								  		auxProfesor.cedula = resultado[i];
-									}
-									if(i==1){
-										auxProfesor.apellidos = resultado[i];
-									}
-									if(i==2){
-										auxProfesor.nombres = resultado[i];
-									}
-									if(i==3){
-										auxProfesor.numeroDeClases = toInt(resultado[i]);
-									}
+								auxProfesor.cedula = resultado[0];
+								auxProfesor.apellidos = resultado[1];
+								auxProfesor.nombres = resultado[2];
+								auxProfesor.numeroDeClases = toInt(resultado[3]);
+								auxProfesor.listaCortesDeNotas = consultarCortesDeNotasPorProfesor(auxProfesor.cedula);
+								if(listaProfesores.lista_vacia()){
+									listaProfesores.insertar_inicio(auxProfesor);
 								}
-								return listaCortesDeNotas;									
+								listaProfesores.insertar_final(auxProfesor);
+								return listaProfesores;									
 							}
 							break;
 						}
@@ -156,6 +150,7 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 	string ruta = "./archivos/archivosNotas/Esquema/cortesDeNotas_"+cedula+".txt";
 	lista<cortesDeNotas> auxListaCortesDeNotas;
 	lista <corte> auxListaCortes;	
+	cortesDeNotas auxCorteDeNotas;
 	corte auxCorte;
 	ifstream archivo;
 	string texto;
@@ -166,7 +161,7 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 	vector<string> resultadoPregunta;
 	lista<evaluacion> auxListaEvaluaciones;
 	evaluacion auxEvaluacion;
-	
+	apuntadorEva *auxApuntadorEva;
 	
 	archivo.open(ruta.c_str(), ios::in);
 	if(archivo.fail()){
@@ -202,13 +197,28 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 							auxEvaluacion.preguntaSig = temp;
 						}
 					}
+					if(auxListaEvaluaciones.lista_vacia()){
+						auxListaEvaluaciones.insertar_inicio(auxEvaluacion);
+					}
+					auxListaEvaluaciones.insertar_final(auxEvaluacion);
+					auxApuntadorEva->evaluaciones = auxListaEvaluaciones;
+					auxCorte.apuntadorEva = auxApuntadorEva;
+					if(auxListaCortes.lista_vacia()){
+						auxListaCortes.insertar_inicio(auxCorte);
+					}
+					auxListaCortes.insertar_final(auxCorte);
 				}	
 								
-			}		
-		
+			}
+			auxCorteDeNotas.listaCortes = auxListaCortes;	
+			if(auxListaCortesDeNotas.lista_vacia()) {
+				auxListaCortesDeNotas.insertar_inicio(auxCorteDeNotas);
+			}
+			auxListaCortesDeNotas.insertar_final(auxCorteDeNotas);
 		}
 	
 	}
+	return auxListaCortesDeNotas;
 
 }
 
