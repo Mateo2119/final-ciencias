@@ -5,6 +5,16 @@
 
 
 
+struct refuerzo{
+		string tema;
+		float promedio;
+};
+
+struct consolidado{
+		string pregunta;
+		float promedio;
+};
+
 struct estudiante{
 		string nombreEstudiante;
 };

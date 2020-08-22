@@ -19,6 +19,13 @@ int toInt(string i){
    return x;
 }
 
+float toFloat(string i){
+   stringstream ss(i);
+   float x = 0;
+   ss << x;
+   return x;
+}
+
 template <class T>
 class manejoArchivo{
 	  
@@ -135,12 +142,32 @@ void manejoArchivo<T>::archivoALista(string tipoArchivo, string carpeta, string 
 							}
 							break;
 						}		
-								
+						case "temas":{
+							temas auxTemas;
+							lista<temas> auxListaTemas;
+							vector<string> resultado;
+							while(!archivo.eof()){
+								getline(archivo, texto,' ');
+								resultado.push_back(texto);
+								auxTemas.codigoTema = toInt(resultado[0]);	
+								auxTemas.nombreTema = resultado[1];
+								if(auxListaTemas.lista_vacia()){
+									auxListaTemas.insertar_inicio(auxTemas);
+								}
+								auxListaTemas.insertar_final(auxTemas);
+							}
+							break;
+						}		
 					}
 				break;
 			case "archivosNotas":
+					
 				break;
 			case "consolidado":
+					if(tipoArchivo.rfind("Parcial",0)){
+						
+					}
+					
 				break;
 		}
 	}
@@ -167,11 +194,21 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 	if(archivo.fail()){
 		//crear archivo
 	} else {
+		int cont = 0;
 		while(!archivo.eof()){
 			getline(archivo,texto,' ');
 			resultado.push_back(texto);
 			for(int i=0; i<resultado.size(); i++){
-				if(i==0) {
+				if(i==0 && resultado[0] == "C"){
+					cont++;
+					if(cont>1){
+						if(auxListaCortesDeNotas.lista_vacia()) {
+							auxListaCortesDeNotas.insertar_inicio(auxCorteDeNotas);
+						}
+						auxListaCortesDeNotas.insertar_final(auxCorteDeNotas);
+					}
+				}
+				if(i==0 && resultado[0] != "C") {
 					auxCorte.tipoEvaluacion = resultado[i];
 				}
 				if(i==1){
@@ -211,10 +248,7 @@ lista<cortesDeNotas> consultarCortesDeNotasPorProfesor(string cedula){
 								
 			}
 			auxCorteDeNotas.listaCortes = auxListaCortes;	
-			if(auxListaCortesDeNotas.lista_vacia()) {
-				auxListaCortesDeNotas.insertar_inicio(auxCorteDeNotas);
-			}
-			auxListaCortesDeNotas.insertar_final(auxCorteDeNotas);
+			
 		}
 	
 	}

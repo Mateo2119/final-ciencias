@@ -188,6 +188,10 @@ void subMenuProfesor() {
 }
 
 
+void generarConsolidado(){
+	
+}
+
 int main(int argc, char** argv) {
 	
 	menuPrincipal();
