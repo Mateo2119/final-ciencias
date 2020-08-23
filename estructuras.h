@@ -61,19 +61,20 @@ struct temas {
 
 struct archivosEntrega {
 		string nombreArchivo;
-		archivosEntrega *archivoSig;
 };
 
+struct apuntArchivos {
+		lista<archivosEntrega> listaArchivos;
+};
 struct espacio {
 		string codigoEspacio;
-		archivosEntrega *archivosEntrega;
+		apuntArchivos *archivosEntrega;
 };
 
-struct clases {
-		string cedulaProfesor;
-		lista<espacio> espacio;
+struct clase {
+		string cedula;
+		espacio *arregloEspacios;
 };
-
 
 
 

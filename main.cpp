@@ -20,12 +20,12 @@ int numeroCortes = 3;
 
 lista <profesor> listaProfesores;
 lista <temas> temas;
-lista <clases> clases;
 lista <corte> listaCortes;
 lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
+clase *arregloClases;
 
-
+manejoArchivo manejo_archivo;
 
 /*string fechaActual(char fecha){
   	struct tm *tm;
@@ -38,6 +38,121 @@ string pasarString(auto &i){
    ss << i;
 
    return ss.str();
+}
+
+
+void subMenuJefeSeccion() {
+
+	system("cls");
+	
+	cout<<"Bienvenido, seleccione una opcion.\n"
+		  "1. Registrar un nuevo profesor\n"
+		  "3. Registrar un nuevo tema\n"
+		  "4. Registrar un nuevo espacio\n"
+		  "5. Registrar notas parcial\n";
+	cout<<"Opcion:  ";
+	int opcion=0;
+	// Ciclo do while para que seleccione una opcion valida
+	do{
+		
+		cin>>opcion;
+		switch(opcion){
+				
+			case 1:	{
+				profesor auxProf;
+					string lineaProfesor;
+					string lineaProfesorClase;
+					
+					cout<<"Digite la cedula del profesor\n";
+					cin>>auxProf.cedula;
+					cout<<"Digite apellidos\n";
+					cin>>auxProf.apellidos;
+					cout<<"Digite nombres\n";
+					cin>>auxProf.nombres;
+					cout<<"Digite cantidad de cursos que dictara\n";
+					cin>>auxProf.numeroDeClases;	
+					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
+					
+					//registroProfesorArchivo
+					lineaProfesor = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases)+"\n";
+					manejo_archivo.concatenar("archivosBase","profesores", lineaProfesor);
+					
+					//consulta clases
+					int cont = manejo_archivo.contadorLineas("archivosBase","profesorPorCurso");
+					arregloClases = new clase[cont+1];					
+					arregloClases = manejo_archivo.consultarClases("archivosBase","profesorPorCurso",cont);
+					//
+					
+					int contA = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
+					espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
+					espacio equis[contA];
+					//arregloCursos = manejo_archivo.consultarCursos(contA);
+					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar al profesor \n";
+					
+					for(int a=0; a<contA; a++){
+						equis[a] = arregloCursos[a];
+						//cout<<equis[a].codigoEspacio<<"\n";
+					}
+					cout<<equis[2].codigoEspacio;
+					lineaProfesorClase = auxProf.cedula;
+					espacio arregloEspacio[auxProf.numeroDeClases];					
+					for(int i=0;i<auxProf.numeroDeClases; i++){
+						string codigoCurso;
+						espacio tempEspacio;
+						apuntArchivos aa;
+						apuntArchivos *a;
+						cout<<"por favor digite el primer codigo de curso";
+						cin>>codigoCurso;
+						aa.listaArchivos = manejo_archivo.consultarArchivosPorCurso(codigoCurso);
+						a=&aa;
+						tempEspacio.archivosEntrega = a;
+						tempEspacio.codigoEspacio= codigoCurso;
+						arregloEspacio[i] = tempEspacio;						
+						lineaProfesorClase+=codigoCurso+" ";
+					}
+					//registrar en archivo profesor por curso
+					manejo_archivo.concatenar("archivosBase","archivosPorCurso",lineaProfesorClase);
+					clase auxClase;
+					auxClase.cedula = auxProf.cedula;
+					auxClase.arregloEspacios = arregloEspacio;
+					arregloClases[cont+1] = auxClase;
+					//--------------------
+					//cortes
+					//arreglo de tipo cortes de notas[varibale constante]
+					//
+				break;
+			}			
+			case 2:{
+				break;
+			}
+				
+			case 3:	{
+				break;
+			}
+				
+			case 4:{
+//				manejoArchivo m;
+//				
+//				lista<espacio> auxesp = m.obtenerListaEspacio("archivosBase","archivosPorCurso",5);
+//				int tam = auxesp.obtenerTamano();
+//				cout<<tam;
+//				for(int i=0; i<tam; i++){
+//					espacio auxEspacio = auxesp.imprimir(i);
+//					apuntArchivos a = *auxEspacio.archivosEntrega;
+//					
+//					cout<<auxEspacio.codigoEspacio;
+//					int x = a.listaArchivos.obtenerTamano();
+//					for(int p=0; p<x;p++ ){
+//						archivosEntrega f = a.listaArchivos.imprimir(p);
+//						cout<<f.nombreArchivo;
+//					}
+//					cout<<"\n";
+//				} 
+				break;
+			}
+										
+		}
+	}while(opcion!=0);
 }
 
 
@@ -57,11 +172,14 @@ void menuPrincipal(){
 		cin>>opcion;
 		switch(opcion){
 				
-			case 1:				
+			case 1:	{
+				
 				break;
+			}
 			case 2:
 				break;
 			case 3:	
+				subMenuJefeSeccion();
 				break;			
 		}
 	}while(opcion!=0);
@@ -109,56 +227,7 @@ void subMenuDirector() {
 	}while(opcion!=0);
 }
 
-void subMenuJefeSeccion() {
 
-	system("cls");
-	
-	cout<<"Bienvenido, seleccione una opcion.\n"
-		  "1. Registrar un nuevo profesor\n"
-		  "2. Registrar estructura de corte\n"
-		  "3. Registrar un nuevo tema\n"
-		  "4. Registrar un nuevo espacio\n"
-		  "5. Registrar notas parcial\n";
-	cout<<"Opcion:  ";
-	int opcion=0;
-	// Ciclo do while para que seleccione una opcion valida
-	do{
-		
-		cin>>opcion;
-		switch(opcion){
-				
-			case 1:	{
-				profesor auxProf;
-					string auxArchivoProf;
-					
-					cout<<"Digite la cedula del profesor\n";
-					cin>>auxProf.cedula;
-					cout<<"Digite apellidos\n";
-					cin>>auxProf.apellidos;
-					cout<<"Digite nombres\n";
-					cin>>auxProf.nombres;
-					cout<<"Digite cantidad de cursos que dictara\n";
-					cin>>auxProf.numeroDeClases;	
-					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
-					//registroArchivo(auxProf);
-					auxArchivoProf = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases);
-				break;
-			}			
-			case 2:{
-				break;
-			}
-				
-			case 3:	{
-				break;
-			}
-				
-			case 4:{
-				break;
-			}
-										
-		}
-	}while(opcion!=0);
-}
 
 
 

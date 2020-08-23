@@ -24,7 +24,8 @@ class lista{nodoLista <T> *cab;
 			bool buscar (int pos, T *infoRet);
 			bool cambiar(int pos, T infoNueva);	
 			T buscarT(int pos, T *infoRet);
-
+			T imprimir(int pos);
+			int obtenerTamano();
 
 
 };
@@ -157,5 +158,25 @@ bool lista<T>::cambiar(int pos, T infoNueva)
 	}
   return false;	
 }	
+
+template <class T>
+T lista<T>::imprimir(int pos)
+{ 
+	int p=1;
+	nodoLista <T> *aux=cab;
+	if(pos<tam){
+		while(p<pos && aux != NULL){
+		aux = aux->sig;
+		p++;
+		}
+		return aux->Dato;
+	}
+}
+
+template <class T>
+int lista<T>::obtenerTamano()
+{ 
+	return tam;
+}
 
 #endif
