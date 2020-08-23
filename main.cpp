@@ -78,7 +78,7 @@ void subMenuJefeSeccion() {
 					manejo_archivo.concatenar("archivosBase","profesores", lineaProfesor);
 					
 					//consulta clases
-					int cont = manejo_archivo.contadorLineas("archivosBase","profesorPorCurso");
+					int cont = manejo_archivo.contadorLineas("archivosBase","profesorPorCurso");					
 					auxArregloClases = manejo_archivo.consultarClases("archivosBase","profesorPorCurso",cont);
 					//
 					
@@ -86,9 +86,9 @@ void subMenuJefeSeccion() {
 					espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
 					cout<<"Estos son los cursos registrados hasta el momento \n";
 					
-//					for(int a=0; a<contA; a++){
-//						cout<<arregloCursos[a].codigoEspacio<<"\n";
-//					}		
+					for(int a=0; a<contA; a++){
+						cout<<arregloCursos[a].codigoEspacio<<"\n";
+					}		
 					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar para el profesor \n";
 			
 					lineaProfesorClase = auxProf.cedula+" ";
@@ -99,7 +99,7 @@ void subMenuJefeSeccion() {
 						espacio tempEspacio;
 						apuntArchivos aa;
 						apuntArchivos *a;
-						cout<<"por favor digite el primer codigo de curso";
+						cout<<"por favor digite el "<<i+1<<" codigo de curso: ";
 						cin>>codigoCurso;
 						aa.listaArchivos = manejo_archivo.consultarArchivosPorCurso(codigoCurso);
 						a=&aa;
@@ -107,7 +107,7 @@ void subMenuJefeSeccion() {
 						tempEspacio.codigoEspacio= codigoCurso;
 						arregloEspacio[i] = tempEspacio;						
 						lineaProfesorClase+= codigoCurso+" ";
-					}
+					}					
 					//registrar en archivo profesor por curso
 					manejo_archivo.concatenar("archivosBase","profesorPorCurso",lineaProfesorClase);
 					clase auxClase;
@@ -120,13 +120,13 @@ void subMenuJefeSeccion() {
 //						arregloClases[x] = auxArregloClases[x];
 //						
 //					}
-					
+//					
 //					cout<<sizeof(auxArregloClases);
 //					cout<<sizeof(arregloClases);
-					
+//					
 //					arregloClases[cont] = auxClase;
 //					
-//					cout<<arregloClases[6].cedula;
+//					cout<<arregloClases[cont].cedula;
 					//--------------------
 					//cortes
 					//arreglo de tipo cortes de notas[varibale constante]
