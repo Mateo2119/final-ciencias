@@ -33,6 +33,11 @@ manejoArchivo manejo_archivo;
 	return fecha;
 }
 */
+string pasarString(auto &i){
+   std::stringstream ss;
+   ss << i;
+   return ss.str();
+}
 
 void subMenuJefeSeccion();
 void menuPrincipal();
@@ -51,13 +56,100 @@ int main(int argc, char** argv) {
 	menuPrincipal();
 	return 0;
 }
-
-string pasarString(auto &i){
-   std::stringstream ss;
-   ss << i;
-   return ss.str();
+//-------
+void menuPrincipal(){
+	system("cls");	
+	cout<<"MENU PRINCIPAL\n"<<endl;
+	cout<<"Bienvenido al sistema de seguimiento, seleccione una opcion.\n"
+		  "1. Loguearse como director de area.\n"
+		  "2. Loguearse como profesor.\n"
+		  "3. Loguearse como jefe de seccion.\n";
+	cout<<"Opcion:  ";
+	int opcion=0;
+	// Ciclo do while para que seleccione una opcion valida
+	do{
+		
+		cin>>opcion;
+		switch(opcion){
+				
+			case 1:	{
+				subMenuDirector();				
+				break;
+			}
+			case 2:
+				subMenuProfesor();
+				break;
+			case 3:	
+				subMenuJefeSeccion();
+				break;			
+		}
+	}while(opcion!=0);		  
 }
 
+void subMenuDirector() {
+	system("cls");	
+	cout<<"Bienvenido director de area, seleccione una opcion.\n"
+		  "1. Consultar promedio de estudiante de un curso\n"
+		  "2. Consultar comportamiento promedio de los estudiantes de un curso\n"
+		  "3. Consultar comportamiento promedio de los estudiantes por profesor\n"
+		  "4. Consultar lista de profesores por numero de clases dictadas\n"
+		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n";
+	cout<<"Opcion:  ";
+	int opcion=0;
+	// Ciclo do while para que seleccione una opcion valida
+	do{
+		
+		cin>>opcion;
+		switch(opcion){
+				
+			case 1:	{
+				break;
+			}							
+				
+			case 2:{
+				break;
+			}
+				
+			case 3:	{
+				break;
+			}
+				
+			case 4:	{
+				break;
+			}
+					
+			case 5:	{
+				break;
+			}
+							
+		}
+	}while(opcion!=0);
+}
+
+void subMenuProfesor() {
+	system("cls");
+	
+	cout<<"Bienvenido profesor, seleccione una opcion.\n"
+		  "1. Modificar esquema propuesto para corte\n";
+		  
+	cout<<"Opcion:  ";
+	int opcion=0;
+	// Ciclo do while para que seleccione una opcion valida
+	do{
+		if(opcion!=0){
+			cout<<"Seleccione una opcion valida"<<endl;
+		}
+		
+		cin>>opcion;
+		switch(opcion){
+
+			case 1:	{
+				break;
+			}							
+						
+		}
+	}while(opcion!=0);
+}
 
 void subMenuJefeSeccion(){
 	system("cls");	
@@ -69,11 +161,9 @@ void subMenuJefeSeccion(){
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
-	do{
-		
+	do{		
 		cin>>opcion;
-		switch(opcion){
-				
+		switch(opcion){				
 			case 1:	{
 				profesor auxProf;
 					string lineaProfesor;
@@ -171,132 +261,22 @@ void subMenuJefeSeccion(){
 	}while(opcion!=0);
 }
 
-
-void menuPrincipal(){
-	system("cls");
-	
-	cout<<"MENU PRINCIPAL\n"<<endl;
-	cout<<"Bienvenido al sistema de seguimiento, seleccione una opcion.\n"
-		  "1. Loguearse como director de area.\n"
-		  "2. Loguearse como profesor.\n"
-		  "3. Loguearse como jefe de seccion.\n";
-	cout<<"Opcion:  ";
-	int opcion=0;
-	// Ciclo do while para que seleccione una opcion valida
-	do{
-		
-		cin>>opcion;
-		switch(opcion){
-				
-			case 1:	{
-				subMenuDirector();				
-				break;
-			}
-			case 2:
-				subMenuProfesor();
-				break;
-			case 3:	
-				subMenuJefeSeccion();
-				break;			
-		}
-	}while(opcion!=0);
-		  
-}
 void consultaProEstudianteEnCurso (){
-
-
 }
 
 void consultaComProEstudiantesEnCurso() {
-
-
 }
 
 void consultaComProEstudiantesEnProfesor () {
-
-
 }
 
 void consultarListaProfesoresNumeroDeClases(){
-
 }
 
 void consultarListaEstudiantesNotaSuperior(){
-
-}
-void subMenuDirector() {
-	system("cls");
-	
-	cout<<"Bienvenido director de area, seleccione una opcion.\n"
-		  "1. Consultar promedio de estudiante de un curso\n"
-		  "2. Consultar comportamiento promedio de los estudiantes de un curso\n"
-		  "3. Consultar comportamiento promedio de los estudiantes por profesor\n"
-		  "4. Consultar lista de profesores por numero de clases dictadas\n"
-		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n";
-	cout<<"Opcion:  ";
-	int opcion=0;
-	// Ciclo do while para que seleccione una opcion valida
-	do{
-		
-		cin>>opcion;
-		switch(opcion){
-				
-			case 1:	{
-				break;
-			}							
-				
-			case 2:{
-				break;
-			}
-				
-			case 3:	{
-				break;
-			}
-				
-			case 4:	{
-				break;
-			}
-					
-			case 5:	{
-				break;
-			}
-							
-		}
-	}while(opcion!=0);
 }
 
-
-
-
-
-void subMenuProfesor() {
-	system("cls");
-	
-	cout<<"Bienvenido profesor, seleccione una opcion.\n"
-		  "1. Modificar esquema propuesto para corte\n";
-		  
-	cout<<"Opcion:  ";
-	int opcion=0;
-	// Ciclo do while para que seleccione una opcion valida
-	do{
-		if(opcion!=0){
-			cout<<"Seleccione una opcion valida"<<endl;
-		}
-		
-		cin>>opcion;
-		switch(opcion){
-
-			case 1:	{
-				break;
-			}							
-						
-		}
-	}while(opcion!=0);
-}
-
-
-void generarConsolidado(){
-	
+void generarConsolidado(){	
 }
 
 
