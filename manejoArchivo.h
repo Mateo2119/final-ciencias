@@ -70,7 +70,7 @@ void manejoArchivo::escritura(string carpeta,string nombreArchivo,string dato){
 void manejoArchivo::concatenar(string carpeta,string nombreArchivo ,string dato){
 	string ruta = "./archivos/"+carpeta+"/"+nombreArchivo+".txt";
     std::ofstream archivo(ruta.c_str(), std::ios_base::app | std::ios_base::out);
-	archivo<<dato;
+	archivo<<dato+"\n";
 	archivo.close();
 }
 
@@ -79,7 +79,7 @@ int manejoArchivo::contadorLineas(string carpeta, string tipoArchivo) {
 	string ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";	
 	std::ifstream inFile(ruta.c_str()); 
   	return std::count(std::istreambuf_iterator<char>(inFile), 
-             std::istreambuf_iterator<char>(), '\n')+1;
+             std::istreambuf_iterator<char>(), '\n');
 }
 
 espacio * manejoArchivo::consultarCursos(int numeroLineas){	
@@ -91,7 +91,7 @@ espacio * manejoArchivo::consultarCursos(int numeroLineas){
 	string ruta = "./archivos/archivosBase/archivosPorCurso.txt";
 	archivo.open(ruta.c_str(), ios::in);
 	int contador = 0;
-	while(!archivo.eof()){
+	while(!archivo.eof() && !texto.empty()){
 		vector<string> resultado;
 		lista<archivosEntrega> listaArchivos;
 		archivosEntrega auxArchivo;
@@ -154,33 +154,46 @@ clase * manejoArchivo::consultarClases(string carpeta, string tipoArchivo, int n
 	string ruta = "./archivos/"+carpeta+"/"+tipoArchivo+".txt";
 	archivo.open(ruta.c_str(), ios::in);
 	int contador=0;
-	
-	while(!archivo.eof()){
+	while(!archivo.eof() && !texto.empty()){
 		vector<string> resultado;
 		string texto;
-		clase auxClase;				
+		clase auxClase;						
 		getline(archivo,texto);		
-		resultado = obtenerVector(texto);
-		espacio auxEspacio[resultado.size()-1];	
+		resultado = obtenerVector(texto);		
+		int valor = resultado.size()-1;
+		espacio tempAEspacio[valor];
+		espacio *auxEspacio;	
+		
 		for(int i=0; i<resultado.size(); i++){				
 				if(i==0) {
 					auxClase.cedula = resultado[i];	
 				}else{
 					espacio tempEspacio;
-					apuntArchivos *auxApuntArchivos;					
+					apuntArchivos tempApunt;
+					apuntArchivos *auxApuntArchivos;
+										
 					tempEspacio.codigoEspacio = resultado[i];
+					
 					lista<archivosEntrega> listaArchivos = consultarArchivosPorCurso(tempEspacio.codigoEspacio);
-					auxApuntArchivos->listaArchivos = listaArchivos;
+					
+					tempApunt.listaArchivos = listaArchivos;
+					
+					auxApuntArchivos = &tempApunt;
+					
 					tempEspacio.archivosEntrega = auxApuntArchivos;
-					auxEspacio[i-1] = tempEspacio;					
+					
+					tempAEspacio[i-1] = tempEspacio;					
 									
 				}
 		}
-		auxClase.arregloEspacios = auxEspacio;
+		auxEspacio= new espacio[valor];
+		auxEspacio = tempAEspacio;
+		auxClase.arregloEspacios =auxEspacio;
 		arregloClase[contador] = auxClase;
 		contador++;
-	}	
-	auxArreglo= arregloClase;
+	}	 
+	auxArreglo= new clase[numero];
+	auxArreglo = arregloClase;
 	return auxArreglo;
 }
 
