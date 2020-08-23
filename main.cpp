@@ -85,15 +85,13 @@ void subMenuJefeSeccion() {
 					
 					int contA = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
 					espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
-					espacio equis[contA];
-					//arregloCursos = manejo_archivo.consultarCursos(contA);
-					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar al profesor \n";
+					cout<<"Estos son los cursos registrados hasta el momento \n";
 					
 					for(int a=0; a<contA; a++){
-						equis[a] = arregloCursos[a];
-						//cout<<equis[a].codigoEspacio<<"\n";
-					}
-					cout<<equis[2].codigoEspacio;
+						cout<<arregloCursos[a].codigoEspacio<<"\n";
+					}		
+					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar para el profesor \n";
+			
 					lineaProfesorClase = auxProf.cedula;
 					espacio arregloEspacio[auxProf.numeroDeClases];					
 					for(int i=0;i<auxProf.numeroDeClases; i++){
@@ -111,11 +109,13 @@ void subMenuJefeSeccion() {
 						lineaProfesorClase+=codigoCurso+" ";
 					}
 					//registrar en archivo profesor por curso
-					manejo_archivo.concatenar("archivosBase","archivosPorCurso",lineaProfesorClase);
+					manejo_archivo.concatenar("archivosBase","profesoresPorCurso",lineaProfesorClase);
 					clase auxClase;
 					auxClase.cedula = auxProf.cedula;
 					auxClase.arregloEspacios = arregloEspacio;
 					arregloClases[cont+1] = auxClase;
+					
+					cout<<arregloClases[11].cedula;
 					//--------------------
 					//cortes
 					//arreglo de tipo cortes de notas[varibale constante]

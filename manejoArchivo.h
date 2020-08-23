@@ -116,6 +116,7 @@ espacio * manejoArchivo::consultarCursos(int numeroLineas){
 		arregloEspacios[contador] = auxEspacio;
 		contador++;
 	}
+	auxArreglo = new espacio[contador];
 	auxArreglo = arregloEspacios;
 	return auxArreglo;
 }
