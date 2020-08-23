@@ -33,18 +33,34 @@ manejoArchivo manejo_archivo;
 	return fecha;
 }
 */
+
+void subMenuJefeSeccion();
+void menuPrincipal();
+void consultaProEstudianteEnCurso();
+void consultaComProEstudiantesEnCurso();
+void consultaComProEstudiantesEnProfesor();
+void consultarListaProfesoresNumeroDeClases();
+void consultarListaEstudiantesNotaSuperior();
+void subMenuDirector();
+void subMenuProfesor();
+void generarConsolidado();
+
+//-------
+int main(int argc, char** argv) {
+	
+	menuPrincipal();
+	return 0;
+}
+
 string pasarString(auto &i){
    std::stringstream ss;
    ss << i;
-
    return ss.str();
 }
 
 
-void subMenuJefeSeccion() {
-
-	system("cls");
-	
+void subMenuJefeSeccion(){
+	system("cls");	
 	cout<<"Bienvenido, seleccione una opcion.\n"
 		  "1. Registrar un nuevo profesor\n"
 		  "3. Registrar un nuevo tema\n"
@@ -59,10 +75,11 @@ void subMenuJefeSeccion() {
 		switch(opcion){
 				
 			case 1:	{
-					profesor auxProf;
+				profesor auxProf;
 					string lineaProfesor;
 					string lineaProfesorClase;
 					clase *auxArregloClases;
+					
 					cout<<"Digite la cedula del profesor\n";
 					cin>>auxProf.cedula;
 					cout<<"Digite apellidos\n";
@@ -74,14 +91,14 @@ void subMenuJefeSeccion() {
 					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
 					
 					//registroProfesorArchivo
-					lineaProfesor = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases);
+					lineaProfesor = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases)+"\n";
 					manejo_archivo.concatenar("archivosBase","profesores", lineaProfesor);
 					
 					//consulta clases
+
 					int cont = manejo_archivo.contadorLineas("archivosBase","profesorPorCurso");					
 					auxArregloClases = manejo_archivo.consultarClases("archivosBase","profesorPorCurso",cont);
-					//
-					
+
 					int contA = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
 					espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
 					cout<<"Estos son los cursos registrados hasta el momento \n";
@@ -91,9 +108,9 @@ void subMenuJefeSeccion() {
 					}		
 					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar para el profesor \n";
 			
-					lineaProfesorClase = auxProf.cedula+" ";
-					espacio arregloEspacio[auxProf.numeroDeClases];
-					espacio *auxArregloEspacio;					
+					lineaProfesorClase = auxProf.cedula;
+					espacio arregloEspacio[auxProf.numeroDeClases];	
+					espacio *auxArregloEspacio;				
 					for(int i=0;i<auxProf.numeroDeClases; i++){
 						string codigoCurso;
 						espacio tempEspacio;
@@ -108,8 +125,9 @@ void subMenuJefeSeccion() {
 						arregloEspacio[i] = tempEspacio;						
 						lineaProfesorClase+= codigoCurso+" ";
 					}					
+
 					//registrar en archivo profesor por curso
-					manejo_archivo.concatenar("archivosBase","profesorPorCurso",lineaProfesorClase);
+					manejo_archivo.concatenar("archivosBase","profesoresPorCurso",lineaProfesorClase);
 					clase auxClase;
 					auxClase.cedula = auxProf.cedula;
 					auxArregloEspacio = arregloEspacio;
@@ -127,6 +145,7 @@ void subMenuJefeSeccion() {
 //					arregloClases[cont] = auxClase;
 //					
 //					cout<<arregloClases[cont].cedula;
+
 					//--------------------
 					//cortes
 					//arreglo de tipo cortes de notas[varibale constante]
@@ -184,10 +203,11 @@ void menuPrincipal(){
 		switch(opcion){
 				
 			case 1:	{
-				
+				subMenuDirector();				
 				break;
 			}
 			case 2:
+				subMenuProfesor();
 				break;
 			case 3:	
 				subMenuJefeSeccion();
@@ -196,7 +216,28 @@ void menuPrincipal(){
 	}while(opcion!=0);
 		  
 }
+void consultaProEstudianteEnCurso (){
 
+
+}
+
+void consultaComProEstudiantesEnCurso() {
+
+
+}
+
+void consultaComProEstudiantesEnProfesor () {
+
+
+}
+
+void consultarListaProfesoresNumeroDeClases(){
+
+}
+
+void consultarListaEstudiantesNotaSuperior(){
+
+}
 void subMenuDirector() {
 	system("cls");
 	
@@ -272,11 +313,6 @@ void generarConsolidado(){
 	
 }
 
-int main(int argc, char** argv) {
-	
-	menuPrincipal();
-	return 0;
-}
 
 
 	
