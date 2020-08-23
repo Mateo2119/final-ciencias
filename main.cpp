@@ -33,18 +33,34 @@ manejoArchivo manejo_archivo;
 	return fecha;
 }
 */
+
+void subMenuJefeSeccion();
+void menuPrincipal();
+void consultaProEstudianteEnCurso();
+void consultaComProEstudiantesEnCurso();
+void consultaComProEstudiantesEnProfesor();
+void consultarListaProfesoresNumeroDeClases();
+void consultarListaEstudiantesNotaSuperior();
+void subMenuDirector();
+void subMenuProfesor();
+void generarConsolidado();
+
+//-------
+int main(int argc, char** argv) {
+	
+	menuPrincipal();
+	return 0;
+}
+
 string pasarString(auto &i){
    std::stringstream ss;
    ss << i;
-
    return ss.str();
 }
 
 
-void subMenuJefeSeccion() {
-
-	system("cls");
-	
+void subMenuJefeSeccion(){
+	system("cls");	
 	cout<<"Bienvenido, seleccione una opcion.\n"
 		  "1. Registrar un nuevo profesor\n"
 		  "3. Registrar un nuevo tema\n"
@@ -173,10 +189,11 @@ void menuPrincipal(){
 		switch(opcion){
 				
 			case 1:	{
-				
+				subMenuDirector();				
 				break;
 			}
 			case 2:
+				subMenuProfesor();
 				break;
 			case 3:	
 				subMenuJefeSeccion();
@@ -190,7 +207,7 @@ void consultaProEstudianteEnCurso (){
 
 }
 
-void consultaComProEstudiantesEnCurso () {
+void consultaComProEstudiantesEnCurso() {
 
 
 }
@@ -282,11 +299,6 @@ void generarConsolidado(){
 	
 }
 
-int main(int argc, char** argv) {
-	
-	menuPrincipal();
-	return 0;
-}
 
 
 	
