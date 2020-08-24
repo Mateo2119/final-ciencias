@@ -41,11 +41,11 @@ string pasarString(auto &i){
 
 void subMenuJefeSeccion();
 void menuPrincipal();
-void consultaProEstudianteEnCurso();
-void consultaComProEstudiantesEnCurso();
-void consultaComProEstudiantesEnProfesor();
-void consultarListaProfesoresNumeroDeClases();
-void consultarListaEstudiantesNotaSuperior();
+void consultaProEstudianteEnCurso(string codigoCurso,string nombreEstudiante);
+void consultaComProEstudiantesEnCurso(string codigoCurso);
+void consultaComProEstudiantesEnProfesor(string celProfesor);
+void consultarListaProfesoresNumeroDeClases(int NumClases);
+void consultarListaEstudiantesNotaSuperior(float nota);
 void subMenuDirector();
 void subMenuProfesor();
 void generarConsolidado();
@@ -103,22 +103,45 @@ void subMenuDirector() {
 		switch(opcion){
 				
 			case 1:	{
+				string codigoCurso;
+				string nombreEstudiante;
+				cout<<"Digite el codigo del curso"<<endl;
+				cin>>codigoCurso;
+				cout<<"Digite el nombre del estudiante"<<endl;
+				cin>>nombreEstudiante;
+				consultaProEstudianteEnCurso (codigoCurso,nombreEstudiante);
 				break;
 			}							
 				
 			case 2:{
+				string codigoCurso;
+				cout<<"Digite el codigo del curso"<<endl;
+				cin>>codigoCurso;
+				consultaComProEstudiantesEnCurso(codigoCurso);
 				break;
 			}
 				
 			case 3:	{
+				string celProfesor;
+				cout<<"Digite la cedula del profesor"<<endl;
+				cin>>celProfesor;
+				consultaComProEstudiantesEnProfesor(celProfesor);
 				break;
 			}
 				
 			case 4:	{
+				int NumClases;
+				cout<<"Digite el numero de clases que puede pertenecer al profesor"<<endl;
+				cin>>NumClases;
+				consultarListaProfesoresNumeroDeClases(NumClases);
 				break;
 			}
 					
 			case 5:	{
+				float nota;
+				cout<<"Digite la nota para la consulta"<<endl;
+				cin>>nota;
+				consultarListaEstudiantesNotaSuperior(nota);
 				break;
 			}
 							
@@ -274,20 +297,23 @@ void subMenuJefeSeccion(){
 		}
 	}while(opcion!=0);
 }
-
-void consultaProEstudianteEnCurso (){
+void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
 }
 
-void consultaComProEstudiantesEnCurso() {
+void consultaComProEstudiantesEnCurso(string codigoCurso) {
+	
 }
 
-void consultaComProEstudiantesEnProfesor () {
+void consultaComProEstudiantesEnProfesor(string celProfesor) {
+	
 }
 
-void consultarListaProfesoresNumeroDeClases(){
+void consultarListaProfesoresNumeroDeClases(int NumClases){
+	
 }
 
-void consultarListaEstudiantesNotaSuperior(){
+void consultarListaEstudiantesNotaSuperior(float nota){
+	
 }
 
 void generarConsolidado(){	
