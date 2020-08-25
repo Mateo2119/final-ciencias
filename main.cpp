@@ -11,7 +11,9 @@
 #include "manejoarchivo.h"
 #include "estructuras.h"
 #include "lista.h"
-
+#include "profesor.h"
+#include "curso.h"
+#include "clases.h"
 using namespace std;
 
 int numeroCortes = 3;
@@ -25,7 +27,7 @@ lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
 clase *arregloClases;
 
-manejoArchivo manejo_archivo;
+
 
 /*string fechaActual(char fecha){
   	struct tm *tm;
@@ -33,11 +35,8 @@ manejoArchivo manejo_archivo;
 	return fecha;
 }
 */
-string pasarString(auto &i){
-   std::stringstream ss;
-   ss << i;
-   return ss.str();
-}
+
+
 
 void subMenuJefeSeccion();
 void menuPrincipal();
@@ -52,7 +51,7 @@ void generarConsolidado();
 
 //-------
 int main(int argc, char** argv) {
-	
+	manejoArchivo manejo_archivo;
 	menuPrincipal();
 	return 0;
 }
@@ -188,11 +187,10 @@ void subMenuJefeSeccion(){
 		cin>>opcion;
 		switch(opcion){				
 			case 1:	{
-				profesor auxProf;
-					string lineaProfesor;
-					string lineaProfesorClase;
-					
-					
+					profesor auxProf;
+					claseProfesor claseProfesor;
+					claseCurso claseCurso;
+					claseClases claseClase;
 					cout<<"Digite la cedula del profesor\n";
 					cin>>auxProf.cedula;
 					cout<<"Digite apellidos\n";
@@ -201,83 +199,33 @@ void subMenuJefeSeccion(){
 					cin>>auxProf.nombres;
 					cout<<"Digite cantidad de cursos que dictara\n";
 					cin>>auxProf.numeroDeClases;	
-					auxProf.listaCortesDeNotas = listaCortesDeNotas;	
-					
-					//registroProfesorArchivo
-					lineaProfesor = auxProf.cedula+" "+ auxProf.apellidos+" "+auxProf.nombres+" "+pasarString(auxProf.numeroDeClases)+"\n";
-					manejo_archivo.concatenar("archivosBase","profesores", lineaProfesor);
-					
-					//consulta clases
 
-					int cont = manejo_archivo.contadorLineas("archivosBase","profesorPorCurso");					
-					clase *auxArregloClases = manejo_archivo.consultarClases("archivosBase","profesorPorCurso",cont);
+					//registro Profesor Archivo
 
-					int contA = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
-					espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
+					claseProfesor.registroProfesor(auxProf);
+					
+					//consulta numero de cursos registrados
+					int numeroLineas = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
+										
 					cout<<"Estos son los cursos registrados hasta el momento \n";
 					
-					for(int a=0; a<contA; a++){
-						espacio *ttt = arregloCursos+a;
-						cout<<ttt->codigoEspacio<<"\n";
-					}		
+					//impresion de cursos registrados
+					claseCurso.imprimirCursos(numeroLineas,claseCurso.consultarCursos(numeroLineas));
+					
+					//registro Clases profesor
+		
 					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar para el profesor \n";
 			
-					lineaProfesorClase = auxProf.cedula+" ";
-					espacio arregloEspacio[auxProf.numeroDeClases];	
-					espacio *auxArregloEspacio;				
-					for(int i=0;i<auxProf.numeroDeClases; i++){
-						string codigoCurso;
-						espacio tempEspacio;
-						apuntArchivos aa;
-						apuntArchivos *a;
-						cout<<"por favor digite el "<<i+1<<" codigo de curso: ";
-						cin>>codigoCurso;
-						aa.listaArchivos = manejo_archivo.consultarArchivosPorCurso(codigoCurso);
-						a=&aa;
-						tempEspacio.archivosEntrega = a;
-						tempEspacio.codigoEspacio= codigoCurso;
-						arregloEspacio[i] = tempEspacio;						
-						lineaProfesorClase+= codigoCurso+" ";
-					}					
-
-					//registrar en archivo profesor por curso
-					manejo_archivo.concatenar("archivosBase","profesorPorCurso",lineaProfesorClase);
-					clase auxClase;
-					auxClase.cedula = auxProf.cedula;
-					auxArregloEspacio = arregloEspacio;
-					auxClase.arregloEspacios = auxArregloEspacio;
 					
-					arregloClases = new clase[cont+1];
-					
-						
-//					for(int x=0; x<cont; x++) {
-//						clase p = *(auxArregloClases+x);
-//						cout<<p.cedula;
-//						
-//					}
-					
-					cout<<sizeof(auxArregloClases);
-					cout<<sizeof(arregloClases);
-//					
-//					arregloClases[cont] = auxClase;
-//					
-//					cout<<arregloClases[cont].cedula;
+					claseClase.registrarClases(auxProf.numeroDeClases, auxProf.cedula);
 
 					//--------------------
 					//cortes
 					//arreglo de tipo cortes de notas[varibale constante]
 					//
 					
-					//char prefijoCorte = "C";
-//					string textoCorte = prefijoCorte+"\n";
-//					cout<<"\n Configuracion esquema de corte para profesor \n";
-//					
-//					for(int c=0;c<numeroCortes;c++) {
-//						int cantAct;
-//						cout<<"Ingrese la cantidad de actividades que realizara para cada corte";
-//						cin>>cantAct;
-//						for("")
-//					}
+					cout<<"\n Configuracion esquema de corte para profesor \n";
+					
 					
 				break;
 			}			

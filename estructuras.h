@@ -24,25 +24,32 @@ struct estudiantePorCurso {
 		lista<estudiante> estudiante;				
 }; 
 
-struct evaluacion {
-		string fecha;	    
-		int tema;
-		string porcentajeTema;
-		evaluacion *preguntaSig;
+struct preguntas {
+	int tema;
+	string porcentajeTema;
 };
 
-struct apuntadorEva {
+struct evaluacion {
+		string fecha;	    		
+		lista<preguntas> preguntaSig;
+};
+
+struct apuntadorEvaluacion {
 		lista<evaluacion> evaluaciones;
 };
 
 struct corte {
 		string tipoEvaluacion;
 		string porcentaje;
-		apuntadorEva *apuntadorEva;
+		apuntadorEvaluacion *apuntadorEvaluacion;
 }; 
+
+struct apuntadorCorte{
+		corte *arregloCorte;
+};
    
 struct cortesDeNotas {		
-		lista <corte> listaCortes;
+		lista <apuntadorCorte> listaCortes;
 };
  
 struct profesor {
