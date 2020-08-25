@@ -210,7 +210,6 @@ clase * manejoArchivo::consultarClases(string carpeta, string tipoArchivo, int n
 			contador++;
 		}		
 	}	 
-	auxArreglo= new clase[numero];
 	auxArreglo = arregloClase;
 	return auxArreglo;
 }
