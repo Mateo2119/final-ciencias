@@ -96,28 +96,10 @@ lista<archivosEntrega> claseCurso::consultarArchivosPorCurso(string codigoCurso)
 }
 
 void claseCurso::imprimirCursos(int numeroLineas, espacio *cursos){	
-	ifstream archivo;
-	manejo_archivo.lectura("archivosBase","profesorPorCurso",archivo);
-	bool lineaVacia=false;
-	string texto;
-	vector<string> resultado;
-	
-	for(int a=0; a<numeroLineas; a++){
 
-		while(!archivo.eof() && !lineaVacia){
-			getline(archivo,texto);
-			resultado = conversiones_tipos.obtenerVector(texto);		
-			if(texto.empty()){
-				lineaVacia = true;
-			} else {
-				for(int i=1; i<resultado.size(); i++){
-					
-					if(resultado[i] != cursos[a].codigoEspacio){
-						cout<<cursos[a].codigoEspacio<<"\n";
-					}
-				}
-			}		
-		}				
+	for(int a=0; a<numeroLineas; a++){
+		espacio *t = cursos+a;
+		cout<<t->codigoEspacio<<"\n";					
 	}			
 }
 
