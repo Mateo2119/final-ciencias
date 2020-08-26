@@ -44,7 +44,7 @@ void menuPrincipal();
 void consultaProEstudianteEnCurso(string codigoCurso,string nombreEstudiante);
 void consultaComProEstudiantesEnCurso(string codigoCurso);
 void consultaComProEstudiantesEnProfesor(string celProfesor);
-void consultarListaProfesoresNumeroDeClases(int NumClases);
+void consultarListaProfesoresNumeroDeClases(string celProfesor);
 void consultarListaEstudiantesNotaSuperior(float nota);
 void subMenuDirector();
 void subMenuProfesor();
@@ -133,8 +133,8 @@ void subMenuDirector() {
 			}
 				
 			case 4:	{
-				int NumClases;
-				cout<<"Digite el numero de clases que puede pertenecer al profesor"<<endl;
+				string NumClases;
+				cout<<"Digite el numero de cedula del profesor para ver sus cursos"<<endl;
 				cin>>NumClases;
 				consultarListaProfesoresNumeroDeClases(NumClases);
 				break;
@@ -349,13 +349,43 @@ vector<int> vectorNotas;
 void consultaComProEstudiantesEnCurso(string codigoCurso) {
 	
 }
-
+//---------------------------------------------------------------------------
 void consultaComProEstudiantesEnProfesor(string celProfesor) {
-	
 }
 
-void consultarListaProfesoresNumeroDeClases(int NumClases){
-	
+void consultarListaProfesoresNumeroDeClases(string celProfesor){
+	cout<<"Buscando..."<<endl;
+	vector<string> cursos;
+	ifstream archivo;
+	conversiones conversionTipo;
+	int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "profesorPorCurso");
+	manejo_archivo.lectura("archivosBase/", "profesorPorCurso",archivo);
+	string textoFila;
+	vector<string> resultado;
+	bool lineaVacia = false;
+	bool siguiente = true;
+	while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+	  			if(resultado[0]==celProfesor ){
+	  				lineaVacia=true;
+	  				cout<<"Cursos del profesor: "<<endl;
+	  				int i = 1;
+	  				while(siguiente){
+	  					cout<<"		"<<resultado[i]<<endl;
+	  					if(resultado[i+1] == ""){
+	  						siguiente = false;
+						  }
+						i++; 
+					  }
+	  				//cout<<"ejemplo: "<<resultado[1];
+					archivo.close();
+	  			}
+			}
+	}
 }
 
 void consultarListaEstudiantesNotaSuperior(float nota){
