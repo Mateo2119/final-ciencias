@@ -275,7 +275,7 @@ void subMenuJefeSeccion(){
 	}while(opcion!=0);
 }
 void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
-		 conversiones conversionTipo;
+	 conversiones conversionTipo;
 	 vector<int> vectorPreguntas;
 	 ifstream archivo;
 
@@ -305,7 +305,7 @@ void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
    manejo_archivo.lectura("archivosNotas/Parciales/",codigoCurso+"Parcial1",archivo);
    
    if(archivo.fail()){
-	  cout<<"Notas no Ingresadas";
+	  cout<<"ERROR DE NOTACION";
    }
 	lineaVacia=false;
 		while(!archivo.eof() && !lineaVacia){
@@ -317,7 +317,7 @@ void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
 	  			//cout<<resultado[0]<<endl;
 	  			if(resultado[0]==nombreEstudiante){
 	  				lineaVacia=true;
-	  				cout<<"Estudiante Encontrado..."+resultado[0]<<endl;
+	  				cout<<"Estudiante Encontrado..."<<endl;
 					archivo.close();
 			}
 		}
@@ -325,35 +325,36 @@ void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
 manejo_archivo.lectura("consolidado","Parcial1",archivo);
 vector<int> vectorNotas;
    if(archivo.fail()){
-	  cout<<"Error de notacion";
-   }
+	  cout<<"ERROR DE NOTACION"<<endl;
+   }else{
+   
 	lineaVacia=false;
+	float nota = 1;
 		while(!archivo.eof() && !lineaVacia){
 			getline(archivo, textoFila);
 			if(textoFila.empty()){
 				lineaVacia=true;
 			} else {
 				resultado = conversionTipo.obtenerVector((textoFila));
-				for(int i=1; i<resultado.size(); i++) {
-						int cont = 1;
-						int promedio[10];
-						promedio[i] = conversionTipo.toInt(resultado[i]);
-					  int nota = promedio[i];
-    				  int sumatoria = sumatoria + nota;
-					   cont ++;
-					  if(cont == 10){
-					  	float promedio = sumatoria/10;
-					  cout<<"El Promedio del estudiante"+resultado[0]<<endl;
-					  cout<<promedio<<endl;
-					  }
-					}
-					archivo.close();
-			}
-		}
+				float nota = 1;
+			for(int i=1; i<resultado.size(); i++) {
+						 
+						nota = nota + conversionTipo.toInt(resultado[i]);
+					
+
+
+							
+						}
 	
+			  }
+			}
+			cout<<"El Promedio del estudiante"<<endl;
+			cout<<resultado[nota]<<endl;
 
-
+					archivo.close();
 }
+}
+
 
 void consultaComProEstudiantesEnCurso(string codigoCurso) {
 	
