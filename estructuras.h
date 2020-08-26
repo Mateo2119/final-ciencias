@@ -17,6 +17,7 @@ struct consolidado{
 
 struct estudiante{
 		string nombreEstudiante;
+		lista<float> notas;
 };
 
 struct estudiantePorCurso {
