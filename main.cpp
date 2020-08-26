@@ -322,7 +322,7 @@ void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
 			}
 		}
 	}
-manejo_archivo.lectura("consolidado","Parcial1",archivo);
+manejo_archivo.lectura("consolidado",codigoCurso+"Parcial1",archivo);
 vector<int> vectorNotas;
    if(archivo.fail()){
 	  cout<<"ERROR DE NOTACION"<<endl;
@@ -382,7 +382,7 @@ void consultaComProEstudiantesEnCurso(string codigoCurso) {
 	  }
 	}
    }
-manejo_archivo.lectura("consolidado","Parcial1",archivo);
+manejo_archivo.lectura("consolidado",codigoCurso+"Parcial1",archivo);
 vector<int> vectorNotas;
    if(archivo.fail()){
 	  cout<<"ERROR DE NOTACION";
