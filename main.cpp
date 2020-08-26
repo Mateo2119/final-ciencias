@@ -106,15 +106,6 @@ void subMenuDirector() {
 				string codigoCurso;
 				string nombreEstudiante;
 				
-				int cont = manejo_archivo.contadorLineas("archivosBase","estudiantePorCurso");
-				auxArregloClases = manejo_archivo.consultarClases("archivosBase","estudiantePorCurso",cont);
-
-				int contA = manejo_archivo.contadorLineas("archivosBase","archivosPorCurso");
-				espacio *arregloCursos = manejo_archivo.consultarCursos(contA);
-				cout<<"Estos son los cursos registrados \n";
-				for(int a=0; a<contA; a++){
-						cout<<"  -" << arregloCursos[a].codigoEspacio<<"\n";
-					}
    				cout<<"Digite el codigo del curso"<<endl;
 				cin>>codigoCurso;
 				cout<<"Digite el nombre del estudiante"<<endl;
