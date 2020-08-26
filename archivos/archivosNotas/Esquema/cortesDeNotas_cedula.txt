@@ -1,12 +1,28 @@
+CODIGOGRUPO
 C
-QUICES 20% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-TALLERES 30% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-PARCIALES 50% 21/08/2020:20:2,21/08/2020:20:2,21/08/2020:30:3,21/08/2020:20:2
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
 C
-QUICES 20% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-TALLERES 30% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-PARCIALES 50% 21/08/2020:20:2,21/08/2020:20:2,21/08/2020:30:3,21/08/2020:20:2
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
 C
-QUICES 20% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-TALLERES 30% 21/08/2020:20:2,21/08/2020:20:2 21/08/2020:20:1,21/08/2020:30:3 21/08/2020:20:2,21/08/2020:20:2
-PARCIALES 50% 21/08/2020:20:2,21/08/2020:20:2,21/08/2020:30:3,21/08/2020:20:2
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+
+CODIGOGRUPO
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+
