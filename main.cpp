@@ -15,6 +15,9 @@
 #include "curso.h"
 #include "clases.h"
 #include "cola.h"
+#include "temas.h"
+#include "cortesDeNotas.h"
+#include "estudiantes.h"
 using namespace std;
 
 int numeroCortes = 3;
@@ -22,14 +25,14 @@ int numeroCortes = 3;
 //numero de espacios (consulta x profesor)
 
 lista <profesor> listaProfesores;
-lista <temas> temas;
+lista <temas> listaTemas;
 lista <corte> listaCortes;
 lista <cortesDeNotas> listaCortesDeNotas;
 lista <evaluacion> evaluaciones;
 clase *arregloClases;
 
-
-
+manejoArchivo manejo_archivo;
+conversiones conversiones_tipos;
 /*string fechaActual(char fecha){
   	struct tm *tm;
 	strptime(fecha.c_str(), 11, "%d/%m/%Y", tm);
@@ -44,8 +47,9 @@ void menuPrincipal();
 void consultaProEstudianteEnCurso(string codigoCurso,string nombreEstudiante);
 void consultaComProEstudiantesEnCurso(string codigoCurso);
 void consultaComProEstudiantesEnProfesor(string celProfesor);
-void consultarListaProfesoresNumeroDeClases(int NumClases);
+void consultarListaProfesoresNumeroDeClases(string celProfesor);
 void consultarListaEstudiantesNotaSuperior(float nota);
+void consultarEstudiantes(string numCurso);
 void subMenuDirector();
 void subMenuProfesor();
 void generarConsolidado();
@@ -54,6 +58,7 @@ void generarConsolidado();
 int main(int argc, char** argv) {
 	manejoArchivo manejo_archivo;
 	menuPrincipal();
+	conversiones conversionTipo;
 	return 0;
 }
 //-------
@@ -92,8 +97,9 @@ void subMenuDirector() {
 		  "1. Consultar promedio de estudiante de un curso\n"
 		  "2. Consultar comportamiento promedio de los estudiantes de un curso\n"
 		  "3. Consultar comportamiento promedio de los estudiantes por profesor\n"
-		  "4. Consultar lista de profesores por numero de clases dictadas\n"
-		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n";
+		  "4. Consultar lista de cursos por numero de cedula de profesor\n"
+		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n"
+		  "6. Consultar estudiantes de un curso\n";
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
@@ -103,9 +109,11 @@ void subMenuDirector() {
 		switch(opcion){
 				
 			case 1:	{
+				clase *auxArregloClases;
 				string codigoCurso;
 				string nombreEstudiante;
-				cout<<"Digite el codigo del curso"<<endl;
+				
+   				cout<<"Digite el codigo del curso"<<endl;
 				cin>>codigoCurso;
 				cout<<"Digite el nombre del estudiante"<<endl;
 				cin>>nombreEstudiante;
@@ -130,8 +138,8 @@ void subMenuDirector() {
 			}
 				
 			case 4:	{
-				int NumClases;
-				cout<<"Digite el numero de clases que puede pertenecer al profesor"<<endl;
+				string NumClases;
+				cout<<"Digite el numero de cedula del profesor para ver sus cursos"<<endl;
 				cin>>NumClases;
 				consultarListaProfesoresNumeroDeClases(NumClases);
 				break;
@@ -142,6 +150,13 @@ void subMenuDirector() {
 				cout<<"Digite la nota para la consulta"<<endl;
 				cin>>nota;
 				consultarListaEstudiantesNotaSuperior(nota);
+				break;
+			}
+			case 6:	{
+				string numClase;
+				cout<<"Digite el curso para ver los estudiantes"<<endl;
+				cin>>numClase;
+				consultarEstudiantes(numClase);
 				break;
 			}
 							
@@ -178,9 +193,9 @@ void subMenuJefeSeccion(){
 	system("cls");	
 	cout<<"Bienvenido, seleccione una opcion.\n"
 		  "1. Registrar un nuevo profesor\n"
-		  "3. Registrar un nuevo tema\n"
-		  "4. Registrar un nuevo espacio\n"
-		  "5. Registrar notas parcial\n";
+		  "2. Registrar un nuevo tema\n"
+		  "3. Registrar un nuevo espacio\n"
+		  "4. Registrar notas parcial\n";
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
@@ -192,6 +207,7 @@ void subMenuJefeSeccion(){
 					claseProfesor claseProfesor;
 					claseCurso claseCurso;
 					claseClases claseClase;
+					claseCortesDeNotas claseCorteDeNotas;
 					cout<<"Digite la cedula del profesor\n";
 					cin>>auxProf.cedula;
 					cout<<"Digite apellidos\n";
@@ -218,67 +234,222 @@ void subMenuJefeSeccion(){
 					cout<<"Escriba los "<<auxProf.numeroDeClases<<" cursos a registrar para el profesor \n";
 			
 					
-					claseClase.registrarClases(auxProf.numeroDeClases, auxProf.cedula);
+					vector<string> cursos = claseClase.registrarClases(auxProf.numeroDeClases, auxProf.cedula);
 
 					//--------------------
 					//cortes
-					//arreglo de tipo cortes de notas[varibale constante]
 					//
 					
-					cout<<"\n Configuracion esquema de corte para profesor \n";
-					
-					
+					for(int x=0; x<cursos.size();x++){
+						cout<<"\n Configuracion esquema de corte para profesor asociado al curso "+cursos[x]+ "\n";
+						claseCorteDeNotas.registroCortesDeNotas(cursos[x],numeroCortes,auxProf.cedula);
+					}
+	
 				break;
 			}			
 			case 2:{
+				claseTemas claseTemas;
+				temas objTemas;
+				int cantidadTemas;
+				cout<<"Ingrese cuantos temas desea ingresar \n";
+				cin>>cantidadTemas;				
+				for(int i=1; i<=cantidadTemas; i++){					
+					cout<<"Ingrese el nombre del tema \n";
+					cin>> objTemas.nombreTema;
+					objTemas.codigoTema = i;
+					claseTemas.registrarTemas(objTemas);
+				}
 				break;
 			}
 				
-			case 3:	{
+			case 3:	{	
+				claseCurso claseCurso;
+				espacio objEspacio;
+				int cantidadEspacios;
+				cout<<"Ingrese cuantos cursos desea ingresar \n";
+				cin>>cantidadEspacios;				
+				for(int i=1; i<=cantidadEspacios; i++){					
+					cout<<"Ingrese el codigo del espacio \n";
+					cin>> objEspacio.codigoEspacio;					
+					claseCurso.registroCurso(objEspacio,numeroCortes);
+				}		
 				break;
 			}
 				
 			case 4:{
-//				manejoArchivo m;
-//				
-//				lista<espacio> auxesp = m.obtenerListaEspacio("archivosBase","archivosPorCurso",5);
-//				int tam = auxesp.obtenerTamano();
-//				cout<<tam;
-//				for(int i=0; i<tam; i++){
-//					espacio auxEspacio = auxesp.imprimir(i);
-//					apuntArchivos a = *auxEspacio.archivosEntrega;
-//					
-//					cout<<auxEspacio.codigoEspacio;
-//					int x = a.listaArchivos.obtenerTamano();
-//					for(int p=0; p<x;p++ ){
-//						archivosEntrega f = a.listaArchivos.imprimir(p);
-//						cout<<f.nombreArchivo;
-//					}
-//					cout<<"\n";
-//				} 
+				string codigoCurso;
+				claseEstudiantes claseEstudiante;
+				int numeroCorte;
+				cout<<"Por favor digite codigo de curso";
+				cin>>codigoCurso;
+				cout<<"Por favor digite numero de corte del parcial a registrar";
+				cin>>numeroCorte;			
+				claseEstudiante.registroNotasEstudiantes(codigoCurso,numeroCorte);
 				break;
 			}
 										
 		}
 	}while(opcion!=0);
 }
+
 void consultaProEstudianteEnCurso (string codigoCurso,string nombreEstudiante){
+		 conversiones conversionTipo;
+	 vector<int> vectorPreguntas;
+	 ifstream archivo;
+
+
+		int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "estudiantePorCurso");
+		manejo_archivo.lectura("archivosBase/", "estudiantePorCurso",archivo);
+		string textoFila;
+		vector<string> resultado;
+		int contadorPreg = 0;
+		bool lineaVacia= false;
+		while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+	  			//cout<<resultado[0]<<endl;
+	  			if(resultado[0]==codigoCurso ){
+	  				lineaVacia=true;
+	  				cout<<"Curso Encontrado..."<<endl;
+					archivo.close();
+	  }
+	}
+   }
+   
+  
+   manejo_archivo.lectura("archivosNotas/Parciales/",codigoCurso+"Parcial1",archivo);
+   
+   if(archivo.fail()){
+	  cout<<"Notas no Ingresadas";
+   }
+	lineaVacia=false;
+		while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+	  			//cout<<resultado[0]<<endl;
+	  			if(resultado[0]==nombreEstudiante){
+	  				lineaVacia=true;
+	  				cout<<"Estudiante Encontrado..."+resultado[0]<<endl;
+					archivo.close();
+			}
+		}
+	}
+manejo_archivo.lectura("consolidado","Parcial1",archivo);
+vector<int> vectorNotas;
+   if(archivo.fail()){
+	  cout<<"Error de notacion";
+   }
+	lineaVacia=false;
+		while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+				for(int i=1; i<resultado.size(); i++) {
+						int cont = 1;
+						int promedio[10];
+						promedio[i] = conversionTipo.toInt(resultado[i]);
+					  int nota = promedio[i];
+    				  int sumatoria = sumatoria + nota;
+					   cont ++;
+					  if(cont == 10){
+					  	float promedio = sumatoria/10;
+					  cout<<"El Promedio del estudiante"+resultado[0]<<endl;
+					  cout<<promedio<<endl;
+					  }
+					}
+					archivo.close();
+			}
+		}
+	
+
+
 }
 
 void consultaComProEstudiantesEnCurso(string codigoCurso) {
 	
 }
-
+//---------------------------------------------------------------------------
 void consultaComProEstudiantesEnProfesor(string celProfesor) {
-	
 }
 
-void consultarListaProfesoresNumeroDeClases(int NumClases){
-	
+void consultarListaProfesoresNumeroDeClases(string celProfesor){
+	cout<<"Buscando..."<<endl;
+	vector<string> cursos;
+	ifstream archivo;
+	conversiones conversionTipo;
+	int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "profesorPorCurso");
+	manejo_archivo.lectura("archivosBase/", "profesorPorCurso",archivo);
+	string textoFila;
+	vector<string> resultado;
+	bool lineaVacia = false;
+	bool siguiente = true;
+	while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+	  			if(resultado[0]==celProfesor ){
+	  				lineaVacia=true;
+	  				cout<<"Cursos del profesor: "<<endl;
+	  				int i = 1;
+	  				while(siguiente){
+	  					cout<<"		"<<resultado[i]<<endl;
+	  					if(resultado[i+1] == ""){
+	  						siguiente = false;
+						  }
+						i++; 
+					  }
+	  				//cout<<"ejemplo: "<<resultado[1];
+					archivo.close();
+	  			}
+			}
+	}
 }
 
 void consultarListaEstudiantesNotaSuperior(float nota){
 	
+}
+void consultarEstudiantes(string numCurso){
+	cout<<"... "<<endl;
+	vector<string> estudiantes;
+	ifstream archivo;
+	conversiones conversionTipo;
+	int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "estudiantePorCurso");
+	manejo_archivo.lectura("archivosBase/", "estudiantePorCurso",archivo);
+	string textoFila;
+	bool lineaVacia = false;
+	bool siguiente = true;
+	while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				estudiantes = conversionTipo.obtenerVector((textoFila));
+	  			if(estudiantes[0]==numCurso ){
+	  				lineaVacia=true;
+	  				cout<<"Estudiantes: "<<endl;
+	  				int i = 1;
+	  				while(siguiente){
+	  					cout<<"		"<<estudiantes[i]<<endl;
+	  					if(estudiantes[i+1] == ""){
+	  						siguiente = false;
+						  }
+						i++; 
+					  }
+	  				//cout<<"ejemplo: "<<resultado[1];
+					archivo.close();
+	  			}
+			}
+	}
 }
 
 void generarConsolidado(){	

@@ -18,7 +18,7 @@ class claseCurso{
 	  
       public: claseCurso(){}
       			
-				void registroProfesor(profesor objProfesor);
+				void registroCurso(espacio objEspacio, int numeroCortes);
 				void imprimirCursos(int numeroLineas, espacio *cursos);
 				lista<archivosEntrega> consultarArchivosPorCurso(string codigoCurso);
 	  	     	espacio * consultarCursos(int numeroLineas);
@@ -27,7 +27,16 @@ class claseCurso{
       		  
 };
 
-
+void claseCurso::registroCurso(espacio objEspacio, int numeroCortes){
+	string lineaPrefijo;
+	string lineaArchivos;
+	for(int x=1; x<=numeroCortes; x++){
+		lineaPrefijo+= objEspacio.codigoEspacio+"_parcial"+conversiones_tipos.toString(x)+" "+"\n";	
+		manejo_archivo.escritura("archivosNotas/Parciales","lineaPrefijo","");	
+	}
+	lineaArchivos+= objEspacio.codigoEspacio+" "+lineaPrefijo+"\n";
+	manejo_archivo.concatenar("archivosBase","archivosPorCurso",lineaArchivos);
+}
 espacio * claseCurso::consultarCursos(int numeroLineas){
 
 	

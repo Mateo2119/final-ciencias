@@ -8,22 +8,24 @@
 #include <algorithm>
 #include "estructuras.h"
 #include "lista.h"
-
+#include "temas.h"
 
 class claseCortesDeNotas{
-	  
+	  manejoArchivo manejo_archivo;
+	  conversiones conversiones_tipos;
       public: claseCortesDeNotas(){}
-				void registroCortesDeNotas();
+				void registroCortesDeNotas(string codigoCurso, int numeroCortes, string cedula);
 	  	     
 	  private:
-      		  lista<preguntas> registrarPreguntasPorActividad(int cantPreg,int numeroCorte, int numeroActividad, string nombreActividad, string codigoCurso)
+      		  lista<preguntas> registrarPreguntasPorActividad(int cantPreg,string nombreArchivo);
 };
 
-void claseCorteDeNotas:: registroCortesDeNotas(string codigoCurso){
-	string prefijoCorte = codigoCurso+"\n"+"C";
-	string nombreArchivoCorte="corteDeNotas_"+auxProf.cedula;
-	string lineaArchivoCorte=prefijoCorte+"\n";
-					
+void claseCortesDeNotas:: registroCortesDeNotas(string codigoCurso, int numeroCortes,string cedula){
+	char prefijoCorte = 'C';
+	string nombreArchivoCorte=codigoCurso+"_corteDeNotas_"+cedula;
+	string lineaArchivoCorte;
+	string lineaDeEvaluaciones;	
+	string lineaPreguntas =codigoCurso+"_"+"corte";	
 	cortesDeNotas objCortes;
 	lista<apuntadorCorte> listaApuntadoresCortesDeNotas;
 	apuntadorCorte *arregloDeCortes;
@@ -32,6 +34,7 @@ void claseCorteDeNotas:: registroCortesDeNotas(string codigoCurso){
 	cout<<"\n Configuracion esquema de corte para profesor \n";
 					
 	for(int c=1;c<=numeroCortes;c++) {
+		lineaArchivoCorte+=prefijoCorte+"\n";
 		int cantAct;
 		int cantEval;
 		cout<<"Ingrese la cantidad de actividades que realizara para cada corte";
@@ -58,32 +61,36 @@ void claseCorteDeNotas:: registroCortesDeNotas(string codigoCurso){
 				cin>>objEvaluacion.fecha;
 				cout<<"Ingrese la cantidad de preguntas a relizar en la "<<eval+1<<" actividad \n";
 				cin>>cantPreg;
-				lista<preguntas> listaPreguntas = registrarPreguntasPorActividad(cantPreg,c,cort,objCorte.tipoEvaluacion,codigoCurso);
+				lineaPreguntas+=conversiones_tipos.toString(c)+"_"+objCorte.tipoEvaluacion+conversiones_tipos.toString(cort)+"_preguntas.txt";
+				lista<preguntas> listaPreguntas = registrarPreguntasPorActividad(cantPreg,lineaPreguntas);
 				objEvaluacion.preguntaSig = listaPreguntas;
 				listaEvaluaciones.lista_vacia()? listaEvaluaciones.insertar_inicio(objEvaluacion): listaEvaluaciones.insertar_final(objEvaluacion);
-								 
+				lineaDeEvaluaciones+=objEvaluacion.fecha+" "+lineaPreguntas+",";							 
 			}
+			
+				lineaArchivoCorte+=objCorte.tipoEvaluacion+" "+objCorte.porcentaje+lineaDeEvaluaciones+"\n";	
 				arregloDeEvaluaciones[cort].evaluaciones = listaEvaluaciones;
 				arregloDeCortes[c].arregloCorte[cort] = objCorte;
+				
 		}
 	}
+	manejo_archivo.escritura("archivoNotas/Esquema",nombreArchivoCorte,lineaArchivoCorte);
 }
 
-lista<preguntas> claseCorteDeNotas:: registrarPreguntasPorActividad(int cantPreg,int numeroCorte, int numeroActividad, string nombreActividad, string codigoCurso){
-	
-	lista<preguntas> listaPreguntas;
-	string nombreArchivo=codigoCurso+"_"+"corte"+numeroCorte+"_"+nombreActividad+numeroActividad+"_preguntas";
+lista<preguntas> claseCortesDeNotas:: registrarPreguntasPorActividad(int cantPreg,string nombreArchivo){
+	claseTemas claseTema;
+	lista<preguntas> listaPreguntas;	
 	string dato;
 	int tema = 0;
 	for(int preg = 0; preg<cantPreg; preg++) {
 		preguntas objPreguntas;
 		cout<<"Ingrese el porcentaje de la pregunta \n";
 		cin>>objPreguntas.porcentajeTema;
-		manejo_archivo.impresionListaTemas(manejo_archivo.consultarListaTemas(tema));					
+		claseTema.imprimirListaTemas(claseTema.consultarListaTemas(tema));					
 		cout<<"\n Ingrese el numero de tema a evaluar \n";
 		cin>>objPreguntas.tema;
 		listaPreguntas.lista_vacia()?listaPreguntas.insertar_inicio(objPreguntas):listaPreguntas.insertar_final(objPreguntas);
-		dato+=objPreguntas.porcentajeTema+" "+objPreguntas.tema+"\n";
+		dato+=objPreguntas.porcentajeTema+" "+conversiones_tipos.toString(objPreguntas.tema)+"\n";
 	}
 	manejo_archivo.escritura("archivoNotas/Parciales",nombreArchivo,dato);
 	return listaPreguntas;

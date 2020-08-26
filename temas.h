@@ -10,18 +10,23 @@
 #include "manejoArchivo.h"
 #include "conversiones.h"
 
-manejoArchivo manejo_archivo;
-conversiones conversiones_tipos;
+
 
 class claseTemas{
-	  
+	  manejoArchivo manejo_archivo;
+	  conversiones conversiones_tipos;
       public: claseTemas(){}
 				lista<temas> consultarListaTemas(int codigoTema);
-	  	     	void imprimirListaTemas(lista<temas> listaTemas)
+	  	     	void imprimirListaTemas(lista<temas> listaTemas);
+	  	     	void registrarTemas(temas objTema);
 	  private:
       		  
 };
 
+void claseTemas::registrarTemas(temas objTema){
+	string lineaTemas = objTema.codigoTema+" "+ objTema.nombreTema+"\n";
+	manejo_archivo.concatenar("archivosBase","temas", lineaTemas);
+}
 
 lista<temas> claseTemas::consultarListaTemas(int codigoTema){
 	ifstream archivo;
@@ -39,7 +44,7 @@ lista<temas> claseTemas::consultarListaTemas(int codigoTema){
 		resultado = conversiones_tipos.obtenerVector(texto);
 		for(int i=0; i<resultado.size(); i++) {
 			if(i==0) {
-				objTemas.codigoTema = toInt(resultado[0]);
+				objTemas.codigoTema = conversiones_tipos.toInt(resultado[0]);
 				if(resultado[i] == codigo) {
 					objTemas.nombreTema = resultado[1];
 					listaTemas.insertar_inicio(objTemas);
@@ -58,7 +63,7 @@ lista<temas> claseTemas::consultarListaTemas(int codigoTema){
 void claseTemas::imprimirListaTemas(lista<temas> listaTemas){
 	
 	temas objTema;
-	int numeroLineas = contadorLineas("archivosBase","temas");
+	int numeroLineas = manejo_archivo.contadorLineas("archivosBase","temas");
 	
 	for(int num=0;num<numeroLineas;num++){
 		objTema = listaTemas.imprimir(num);

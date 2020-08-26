@@ -17,7 +17,7 @@ class claseClases{
 	conversiones conversiones_tipos;
       public: claseClases(){}
 				clase * consultarClases(); 
-				void registrarClases(int numeroClases, string cedula);
+				vector<string> registrarClases(int numeroClases, string cedula);
 	  	     	
 	  private:
 	  			
@@ -81,9 +81,9 @@ clase * claseClases::consultarClases() {
 	return auxArreglo;
 }
 
-void claseClases::registrarClases(int numeroClases, string cedula){
+vector<string> claseClases::registrarClases(int numeroClases, string cedula){
 
-	
+	vector<string> cursos;
 	string lineaProfesorClase = cedula+" ";
 	espacio arregloEspacio[numeroClases];	
 	espacio *auxArregloEspacio;	
@@ -95,6 +95,7 @@ void claseClases::registrarClases(int numeroClases, string cedula){
 		apuntArchivos *a;
 		cout<<"por favor digite el "<<i+1<<" codigo de curso: ";
 		cin>>codigoCurso;
+		cursos.push_back(codigoCurso);
 		aa.listaArchivos = clase_curso.consultarArchivosPorCurso(codigoCurso);
 		a=&aa;
 		tempEspacio.archivosEntrega = a;
@@ -105,6 +106,7 @@ void claseClases::registrarClases(int numeroClases, string cedula){
 
 	//registrar en archivo profesor por curso
 	manejo_archivo.concatenar("archivosBase","profesorPorCurso",lineaProfesorClase);
+	return cursos;
 }
 
 

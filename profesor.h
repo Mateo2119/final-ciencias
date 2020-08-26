@@ -9,11 +9,11 @@
 #include "manejoArchivo.h"
 #include "conversiones.h"
 
-manejoArchivo manejo_archivo;
-conversiones conversiones_tipos;
+
 
 class claseProfesor{ 
-	  
+	  manejoArchivo manejo_archivo;
+	  conversiones conversiones_tipos;
       public: claseProfesor(){}
 				void registroProfesor(profesor objProfesor);
 	  	     

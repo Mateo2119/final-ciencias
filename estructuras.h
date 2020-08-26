@@ -15,9 +15,9 @@ struct consolidado{
 		float promedio;
 };
 
-struct estudiante{
+struct estudiante {
 		string nombreEstudiante;
-		lista<float> notas;
+		lista<int> notas;
 };
 
 struct estudiantePorCurso {
