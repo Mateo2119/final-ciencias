@@ -46,6 +46,7 @@ void consultaComProEstudiantesEnCurso(string codigoCurso);
 void consultaComProEstudiantesEnProfesor(string celProfesor);
 void consultarListaProfesoresNumeroDeClases(string celProfesor);
 void consultarListaEstudiantesNotaSuperior(float nota);
+void consultarEstudiantes(string numCurso);
 void subMenuDirector();
 void subMenuProfesor();
 void generarConsolidado();
@@ -93,8 +94,9 @@ void subMenuDirector() {
 		  "1. Consultar promedio de estudiante de un curso\n"
 		  "2. Consultar comportamiento promedio de los estudiantes de un curso\n"
 		  "3. Consultar comportamiento promedio de los estudiantes por profesor\n"
-		  "4. Consultar lista de profesores por numero de clases dictadas\n"
-		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n";
+		  "4. Consultar lista de cursos por numero de cedula de profesor\n"
+		  "5. Consultar lista de estudiantes con nota superior a la nota indicada\n"
+		  "6. Consultar estudiantes de un curso\n";
 	cout<<"Opcion:  ";
 	int opcion=0;
 	// Ciclo do while para que seleccione una opcion valida
@@ -145,6 +147,13 @@ void subMenuDirector() {
 				cout<<"Digite la nota para la consulta"<<endl;
 				cin>>nota;
 				consultarListaEstudiantesNotaSuperior(nota);
+				break;
+			}
+			case 6:	{
+				string numClase;
+				cout<<"Digite el curso para ver los estudiantes"<<endl;
+				cin>>numClase;
+				consultarEstudiantes(numClase);
 				break;
 			}
 							
@@ -390,6 +399,39 @@ void consultarListaProfesoresNumeroDeClases(string celProfesor){
 
 void consultarListaEstudiantesNotaSuperior(float nota){
 	
+}
+void consultarEstudiantes(string numCurso){
+	cout<<"... "<<endl;
+	vector<string> estudiantes;
+	ifstream archivo;
+	conversiones conversionTipo;
+	int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "estudiantePorCurso");
+	manejo_archivo.lectura("archivosBase/", "estudiantePorCurso",archivo);
+	string textoFila;
+	bool lineaVacia = false;
+	bool siguiente = true;
+	while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				estudiantes = conversionTipo.obtenerVector((textoFila));
+	  			if(estudiantes[0]==numCurso ){
+	  				lineaVacia=true;
+	  				cout<<"Estudiantes: "<<endl;
+	  				int i = 1;
+	  				while(siguiente){
+	  					cout<<"		"<<estudiantes[i]<<endl;
+	  					if(estudiantes[i+1] == ""){
+	  						siguiente = false;
+						  }
+						i++; 
+					  }
+	  				//cout<<"ejemplo: "<<resultado[1];
+					archivo.close();
+	  			}
+			}
+	}
 }
 
 void generarConsolidado(){	
