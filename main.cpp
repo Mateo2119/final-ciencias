@@ -14,6 +14,7 @@
 #include "profesor.h"
 #include "curso.h"
 #include "clases.h"
+#include "cola.h"
 using namespace std;
 
 int numeroCortes = 3;
