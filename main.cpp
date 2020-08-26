@@ -357,7 +357,57 @@ vector<int> vectorNotas;
 
 
 void consultaComProEstudiantesEnCurso(string codigoCurso) {
-	
+	 conversiones conversionTipo;
+	 vector<int> vectorPreguntas;
+	 ifstream archivo;
+
+
+		int numeroDeLineasDePreguntas = manejo_archivo.contadorLineas("archivosBase/", "estudiantePorCurso");
+		manejo_archivo.lectura("archivosBase/", "estudiantePorCurso",archivo);
+		string textoFila;
+		vector<string> resultado;
+		int contadorPreg = 0;
+		bool lineaVacia= false;
+		while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+	  			//cout<<resultado[0]<<endl;
+	  			if(resultado[0]==codigoCurso ){
+	  				lineaVacia=true;
+	  				cout<<"Curso Encontrado..."<<endl;
+					archivo.close();
+	  }
+	}
+   }
+manejo_archivo.lectura("consolidado","Parcial1",archivo);
+vector<int> vectorNotas;
+   if(archivo.fail()){
+	  cout<<"ERROR DE NOTACION";
+	  archivo.close();
+   }
+	lineaVacia=false;
+	float nota = 1;
+		while(!archivo.eof() && !lineaVacia){
+			getline(archivo, textoFila);
+			if(textoFila.empty()){
+				lineaVacia=true;
+			} else {
+				resultado = conversionTipo.obtenerVector((textoFila));
+				float nota = 1;
+			for(int i=1; i<resultado.size(); i++) {
+
+						nota = nota + conversionTipo.toInt(resultado[i]);
+				}
+
+			  }
+			}
+			cout<<"El Promedio de los estudiantes en el curso"<<endl;
+			cout<<resultado[nota]<<endl;
+
+					archivo.close();
 }
 //---------------------------------------------------------------------------
 void consultaComProEstudiantesEnProfesor(string celProfesor) {
