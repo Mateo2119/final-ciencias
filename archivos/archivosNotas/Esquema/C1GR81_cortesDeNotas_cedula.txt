@@ -1,0 +1,15 @@
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+C
+QUICES 20% 21/08/2020 grupo_corte1_quices1_preguntas.txt, 21/08/2020 grupo_corte1_quices1_preguntas.txt
+TALLERES 30% 21/08/2020 grupo_corte1_talleres1_preguntas.txt,21/08/2020 grupo_corte1_talleres1_preguntas.txt
+PARCIALES 50% 21/08/2020 grupo_corte1_talleres1_preguntas.txt
+
+
+

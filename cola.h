@@ -15,7 +15,7 @@ struct nodo{
        
 template <class T>
 class cola{
-	nodo *cab,*fin;
+	nodo<T> *cab,*fin;
     public: cola(){cab=fin=NULL;}
     void InsCola(T i);
     T AtenderCola();
@@ -26,8 +26,8 @@ class cola{
 
 template <class T>
 void cola<T>::InsCola(T i){
-     nodo *nuevo;
-     nuevo= new nodo;
+     nodo<T> *nuevo;
+     nuevo= new nodo<T>;
      nuevo->dato=i;
      nuevo->sig= NULL;
      if (cab==NULL)
@@ -40,7 +40,7 @@ void cola<T>::InsCola(T i){
 template <class T>
 T cola<T>::AtenderCola()
 {   T x;
-    nodo *aux = cab; 
+    nodo<T> *aux = cab; 
     cab=aux->sig;
     x=aux->dato;
     delete aux;
@@ -49,7 +49,7 @@ T cola<T>::AtenderCola()
     
 template <class T>
 void cola<T>::ImprimirCola(){
-     nodo *aux;
+     nodo <T> *aux;
      aux=cab;
      while(aux!=NULL){
        cout<<aux->dato<<" ";
@@ -61,8 +61,9 @@ bool cola<T>::ColaVacia(){
      return (cab==NULL);
      }
 
-cola::~cola(){
-     nodo *aux;
+template <class T>
+cola<T>::~cola(){
+     nodo<T> *aux;
      while(cab!=NULL)
        {aux= cab;
         cab=aux->sig;
